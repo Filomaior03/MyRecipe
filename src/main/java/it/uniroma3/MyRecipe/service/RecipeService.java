@@ -12,19 +12,19 @@ public class RecipeService {
 	
 	@Autowired private RecipeRepository recipeRepository;	//istanza costruita e inizializzata dal framework
 	
-	public Ricetta getRecipeById(Long id) {
-		return this.recipeRepository.findById(id).get();
-	}
-	
 	public Iterable<Ricetta> getAllRecipes(){
 		return this.recipeRepository.findAll();
 	}
-
-    public void save(Ricetta recipe) {
-        this.recipeRepository.save(recipe);
-    }
 	
-	public void deleteRecipeById(Long id) {
-		this.recipeRepository.deleteById(id);
-	}
+//	public Ricetta getRecipeById(Long id) {
+//		return this.recipeRepository.findById(id).get();
+//	}
+//
+//    public void save(Ricetta recipe) {
+//        this.recipeRepository.save(recipe);
+//    }
+//	
+//	public void deleteRecipeById(Long id) {
+//		this.recipeRepository.deleteById(id);
+//	}
 }
