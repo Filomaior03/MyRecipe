@@ -1,11 +1,23 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" href="recipesStyle.css">
-    <title>RECIPES</title>
-  </head>
+<head>
+  <link rel="stylesheet" href="recipesStyle.css">
+  <title>RECIPES</title>
+</head>
 
-  <body>
-    <h1>Ecco la lista delle tue ricette:</h1>
-  </body>
+<body>
+  <h1 th:if="${recipes.isEmpty()}">Non c'è nessuna ricetta salvata!</h1>
+  <div>
+    <a th:href="@{/formNewRecipe}">Aggiungi una nuova ricetta</a>
+  </div>
+  <div>
+    <a th:href="@{/}">Torna alla home</a>
+  </div>
+  <h1 th:unless="${recipes.isEmpty()}">Ecco la lista delle tue ricette:</h1>
+  <ul>
+    <li th:each="recipe : ${recipes}">
+      <a th:href="@{'/recipe' + '/' + ${recipe.id}}" th:text="${recipe.name}"></a>
+    </li>
+  </ul>
+</body>
 </html>

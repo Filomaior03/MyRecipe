@@ -27,19 +27,19 @@ public class RecipeController {
 		return "recipes.html";
 	}
 	
-//	//riporta la pagina per modificare la lista dei film
-//	@GetMapping("/updateRecipes")
-//	public String updateRecipe(Model model) {
-//		model.addAttribute("recipes", this.recipeService.getAllRecipes());	//prendo l'id di recipe
-//		return "updateRecipes.html";
-//	}
-//	
-//	//riporta una pagina html che permette di aggiungere un nuovo film
-//	@GetMapping("/formNewRecipe")
-//	public String formNewRecipe(Model model) {
-//		model.addAttribute("recipe", new Ricetta());
-//		return "formNewRecipe.html";
-//	}
+	//riporta la pagina per modificare la lista dei film
+	@GetMapping("/updateRecipes")
+	public String updateRecipe(Model model) {
+		model.addAttribute("recipes", this.recipeService.getAllRecipes());	//prendo l'id di recipe
+		return "updateRecipes.html";
+	}
+	
+	//riporta una pagina html che permette di aggiungere un nuovo film
+	@GetMapping("/formNewRecipe")
+	public String formNewRecipe(Model model) {
+		model.addAttribute("recipe", new Ricetta());
+		return "formNewRecipe.html";
+	}
 //
 //	//gestisce i dati, compresa la validazione, di un nuovo film
 //	@PostMapping("/recipe")
