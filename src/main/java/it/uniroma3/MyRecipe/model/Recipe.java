@@ -9,10 +9,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity	
-public class Ricetta { //con @Entity il framework sa che a Recipe bisogna associare una tabella nel database
+public class Recipe { //con @Entity il framework sa che a Recipe bisogna associare una tabella nel database
 	//@GeneratedValue(strategy = GenerationType.AUTO)
 
 	@Id	//chiave primaria della tabella
@@ -21,9 +22,11 @@ public class Ricetta { //con @Entity il framework sa che a Recipe bisogna associ
 	private Long id;
 
 	@NotNull
+	@NotBlank
 	private String nome;
 
 	@NotNull
+	@NotBlank
 	private String tempoDiPreparazione;
 
 	@ManyToMany
@@ -61,7 +64,7 @@ public class Ricetta { //con @Entity il framework sa che a Recipe bisogna associ
 
 	@Override
 	public boolean equals(Object obj) {
-		Ricetta r = (Ricetta) obj;
+		Recipe r = (Recipe) obj;
 		return this.id == r.getId();
 	}
 

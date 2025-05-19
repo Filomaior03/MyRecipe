@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="formNewProvenienza.css">
+    <title>NEW ORIGIN</title>
+  </head>
+  <body>
+    <form action="@{/provenienza}" method="post" th:object="provenienza">
+      
+      <div th:if="${#fields.hasGlobalErrors()}">
+        <p th:each="err : ${fields.hasGlobalErrors()}" th:text="${err}"></p>
+      </div>
+
+      
+    </form>
+  </body>
+</html>

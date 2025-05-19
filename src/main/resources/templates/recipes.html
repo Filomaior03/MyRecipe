@@ -6,18 +6,28 @@
 </head>
 
 <body>
-  <h1 th:if="${recipes.isEmpty()}">Non c'è nessuna ricetta salvata!</h1>
-  <div>
-    <a th:href="@{/formNewRecipe}">Aggiungi una nuova ricetta</a>
+  <div th:if="${recipes.isEmpty()}">
+    <h1>Non c'è nessuna ricetta salvata!</h1>
+    <div>
+      <a th:href="@{/formNewRecipe}">Aggiungi una nuova ricetta</a>
+    </div>
+    <div>
+      <a th:href="@{/}">Torna alla home</a>
+    </div>
   </div>
-  <div>
-    <a th:href="@{/}">Torna alla home</a>
+  <div th:unless="${recipes.isEmpty()}">
+    <h1>Ecco la lista delle tue ricette:</h1>
+    <ul>
+      <li th:each="recipe : ${recipes}">
+        <a th:href="@{'/recipe' + '/' + ${recipe.id}}" th:text="${recipe.nome}"></a>
+      </li>
+    </ul>
+    <div>
+      <a th:href="@{/formNewRecipe}">Aggiungi una nuova ricetta</a>
+    </div>
+    <div>
+      <a th:href="@{/}">Torna alla home</a>
+    </div>
   </div>
-  <h1 th:unless="${recipes.isEmpty()}">Ecco la lista delle tue ricette:</h1>
-  <ul>
-    <li th:each="recipe : ${recipes}">
-      <a th:href="@{'/recipe' + '/' + ${recipe.id}}" th:text="${recipe.name}"></a>
-    </li>
-  </ul>
 </body>
 </html>

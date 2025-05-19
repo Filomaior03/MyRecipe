@@ -1,10 +1,37 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" href="formNewRecipeStyle.css">
-    <title>NEW RECIPE</title>
+<head>
+  <link rel="stylesheet" href="formNewRecipeStyle.css">
+  <title>NEW RECIPE</title>
   <body>
-    
+    <h1>Per aggiungere una nuova ricetta, compila i seguenti campi:</h1>
+    <!--invio con una richiesta http POST a /recipe le informazioni aggiunte e viene popolato recipe-->
+    <form th:action="@{/recipe}" method="post" th:object="${recipe}">
+      
+      <!--Gestione degli errori-->
+      <!--con '#fields' thymeleaf accede agli errori di validazione-->
+      <div th:if="${#fields.hasGlobalErrors()}">
+        <p th:each="err : ${#fields.hasGlobalErrors()}" th:text="${err}"></p>
+      </div>
+      
+      <div>
+        <label>Nome: </label><span><input type="text" th:field="${recipe.nome}"/></span>
+        <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+      </div>
+      <div>
+        <label>Tempo di preparazione: </label><span><input type="text" th:field="${recipe.tempoDiPreparazione}"/></span>
+        <span th:if="${#fields.hasErrors('tempoDiPreparazione')}" th:errors="*{tempoDiPreparazione}"></span>
+      </div>
+      <div>
+        <a th:href="@{/formNewProvenienza}">Aggiungi provenienza (facoltativo)</a>
+      </div>
+      <div>
+        <span><button type="submit">Conferma</button></span>
+      </div>
+      <div> 
+        <a th:href="@{/}">Torna alla home</a>
+      </div>
+    </form>
   </body>
-  </head>
+</head>
 </html>

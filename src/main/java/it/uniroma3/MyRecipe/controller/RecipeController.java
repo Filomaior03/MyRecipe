@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
-import it.uniroma3.MyRecipe.model.Ricetta;
+import it.uniroma3.MyRecipe.model.Provenienza;
+import it.uniroma3.MyRecipe.model.Recipe;
 import it.uniroma3.MyRecipe.service.*;
 import jakarta.validation.Valid;
 
@@ -34,24 +35,40 @@ public class RecipeController {
 		return "updateRecipes.html";
 	}
 	
-	//riporta una pagina html che permette di aggiungere un nuovo film
+	//riporta una pagina html che permette di aggiungere una nuova ricetta
 	@GetMapping("/formNewRecipe")
 	public String formNewRecipe(Model model) {
-		model.addAttribute("recipe", new Ricetta());
+		model.addAttribute("recipe", new Recipe());
 		return "formNewRecipe.html";
 	}
 //
-//	//gestisce i dati, compresa la validazione, di un nuovo film
-//	@PostMapping("/recipe")
-//	public String newRecipe(@Valid @ModelAttribute("recipe") Ricetta recipe, BindingResult bindingResult, Model model) {
-//		if(bindingResult.hasErrors())	//gestisco gli errori legati alla validazione con bindingResult
-//			return "formNewRecipe.html";
-//		else {
-//			this.recipeService.save(recipe); 
-//			model.addAttribute("recipes", this.recipeService.getAllRecipes());
-//			return "recipes";
-//		}
-//	}
+	//gestisce i dati, compresa la validazione, di una nuova ricetta
+	@PostMapping("/recipe")
+	public String saveRecipe(@Valid @ModelAttribute("recipe") Recipe recipe, BindingResult bindingResult, Model model) {
+		if(bindingResult.hasErrors())	//gli errori di validazione sono catturati da bindingResult
+			return "formNewRecipe.html";
+		else {
+			this.recipeService.save(recipe); 
+			model.addAttribute("recipes", this.recipeService.getAllRecipes());
+			return "redirect:/recipes";
+		}
+	}
+	
+	//riporta una pagina html che permette di aggiungere una nuova provenienza alla ricetta aggiunta
+	@GetMapping("/formNewProvenienza")
+	public String formNewProvenienza(Model model) {
+		model.addAttribute("provenienza", new Provenienza());
+		return "formNewProvenienza.html";
+	}
+//
+	//gestisce i dati, compresa la validazione, di una nuova ricetta
+	@PostMapping("/provenienza")
+	public String saveProvenienza(@ModelAttribute("recipe") Provenienza prov, Model model) {
+			this.recipeService.save(prov); 
+			model.addAttribute("recipes", this.recipeService.getAllRecipes());
+			return "redirect:/recipes";
+		}
+	}
 //
 //	//riporta la pagina html della lista dei film ma con la possibilità di eliminarne uno
 //	@GetMapping("/deleteRecipe")
