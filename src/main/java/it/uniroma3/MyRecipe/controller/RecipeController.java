@@ -60,15 +60,7 @@ public class RecipeController {
 		model.addAttribute("provenienza", new Provenienza());
 		return "formNewProvenienza.html";
 	}
-//
-	//gestisce i dati, compresa la validazione, di una nuova ricetta
-	@PostMapping("/provenienza")
-	public String saveProvenienza(@ModelAttribute("recipe") Provenienza prov, Model model) {
-			this.recipeService.save(prov); 
-			model.addAttribute("recipes", this.recipeService.getAllRecipes());
-			return "redirect:/recipes";
-		}
-	}
+
 //
 //	//riporta la pagina html della lista dei film ma con la possibilità di eliminarne uno
 //	@GetMapping("/deleteRecipe")
