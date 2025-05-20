@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
-import it.uniroma3.MyRecipe.model.Provenienza;
 import it.uniroma3.MyRecipe.model.Recipe;
 import it.uniroma3.MyRecipe.service.*;
 import jakarta.validation.Valid;
@@ -21,14 +20,14 @@ public class RecipeController {
 
 	@Autowired RecipeService recipeService;
 	
-	//mostra tutti i film
+	//mostra tutte le ricette
 	@GetMapping("/recipes")
 	public String showRecipes(Model model) {
 		model.addAttribute("recipes", this.recipeService.getAllRecipes());
 		return "recipes.html";
 	}
 	
-	//riporta la pagina per modificare la lista dei film
+	//riporta la pagina per modificare la lista di ricette
 	@GetMapping("/updateRecipes")
 	public String updateRecipe(Model model) {
 		model.addAttribute("recipes", this.recipeService.getAllRecipes());	//prendo l'id di recipe
@@ -41,26 +40,25 @@ public class RecipeController {
 		model.addAttribute("recipe", new Recipe());
 		return "formNewRecipe.html";
 	}
-//
+	
+	@GetMapping("/recipe/{id}")
+	public String getRecipe(@PathVariable("id") Long id, Model model) {
+		Recipe recipe = this.recipeService.getRecipeById(id);
+		model.addAttribute("recipe", recipe);
+		return "recipe.html";
+	}
+	
 	//gestisce i dati, compresa la validazione, di una nuova ricetta
 	@PostMapping("/recipe")
 	public String saveRecipe(@Valid @ModelAttribute("recipe") Recipe recipe, BindingResult bindingResult, Model model) {
 		if(bindingResult.hasErrors())	//gli errori di validazione sono catturati da bindingResult
 			return "formNewRecipe.html";
 		else {
-			this.recipeService.save(recipe); 
-			model.addAttribute("recipes", this.recipeService.getAllRecipes());
-			return "redirect:/recipes";
+			this.recipeService.save(recipe);
+			Long id = recipe.getId();
+			return "redirect:/recipe/" + id;
 		}
 	}
-	
-	//riporta una pagina html che permette di aggiungere una nuova provenienza alla ricetta aggiunta
-	@GetMapping("/formNewProvenienza")
-	public String formNewProvenienza(Model model) {
-		model.addAttribute("provenienza", new Provenienza());
-		return "formNewProvenienza.html";
-	}
-
 //
 //	//riporta la pagina html della lista dei film ma con la possibilità di eliminarne uno
 //	@GetMapping("/deleteRecipe")

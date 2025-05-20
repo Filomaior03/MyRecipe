@@ -20,9 +20,9 @@ public class RecipeService {
         this.recipeRepository.save(recipe);
     }
 	
-//	public Ricetta getRecipeById(Long id) {
-//		return this.recipeRepository.findById(id).get();
-//	}
+	public Recipe getRecipeById(Long id) {
+		return this.recipeRepository.findById(id).get();
+	}
 
 //	
 //	public void deleteRecipeById(Long id) {

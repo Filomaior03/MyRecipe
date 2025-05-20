@@ -28,15 +28,14 @@ public class Recipe { //con @Entity il framework sa che a Recipe bisogna associa
 	@NotNull
 	@NotBlank
 	private String tempoDiPreparazione;
+	
+	private String provenienza;
 
 	@ManyToMany
 	private List<Ingrediente> ingredienti;
 	
 	@ManyToMany
 	private List<Utensile> utensili;
-	
-	@ManyToOne
-	private Provenienza provenienza; 
 	
 	public Long getId() {
 		return id;
@@ -62,6 +61,14 @@ public class Recipe { //con @Entity il framework sa che a Recipe bisogna associa
 		this.tempoDiPreparazione = tempoDiPreparazione;
 	}
 
+	public String getProvenienza() {
+		return provenienza;
+	}
+	
+	public void setProvenienza(String provenienza) {
+		this.provenienza = provenienza;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		Recipe r = (Recipe) obj;

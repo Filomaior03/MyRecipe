@@ -5,7 +5,7 @@
   <title>NEW RECIPE</title>
   <body>
     <h1>Per aggiungere una nuova ricetta, compila i seguenti campi:</h1>
-    <!--invio con una richiesta http POST a /recipe le informazioni aggiunte e viene popolato recipe-->
+    <!--invio con una richiesta http POST le informazioni aggiunte a /recipe; viene popolato recipe-->
     <form th:action="@{/recipe}" method="post" th:object="${recipe}">
       
       <!--Gestione degli errori-->
@@ -23,7 +23,7 @@
         <span th:if="${#fields.hasErrors('tempoDiPreparazione')}" th:errors="*{tempoDiPreparazione}"></span>
       </div>
       <div>
-        <a th:href="@{/formNewProvenienza}">Aggiungi provenienza (facoltativo)</a>
+        <label>Provenienza: </label><span><input type="text" th:field="${recipe.provenienza}">(facoltativo)</span>
       </div>
       <div>
         <span><button type="submit">Conferma</button></span>
