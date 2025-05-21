@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Fascinate+Inline&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+  <title>Registrazione - MyRecipe</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background-color: #30BCED;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #303036;
+    }
+
+    #welcome-message {
+      font-family: "Fascinate Inline", system-ui;
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    /* Font Sour Gummy applicato solo alle scritte azzurre */
+    input::placeholder,
+    .signup a {
+      font-family: "Sour Gummy", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 500; /* modifica questo valore per il peso */
+      font-style: normal;
+      font-variation-settings: "wdth" 100;
+      color: #30BCED;
+      opacity: 0.8;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    input::placeholder {
+      /* mantieni opacity per placeholder */
+      opacity: 0.8;
+    }
+
+    input::placeholder:focus {
+      /* opzionale, se vuoi cambiare al focus */
+      opacity: 1;
+    }
+
+    .signup a:hover {
+      text-decoration: underline;
+      color: #30BCED;
+      opacity: 1;
+    }
+
+    /* Tutto il resto */
+    .login-form {
+      background: #fff;
+      padding: 3rem 3.5rem;
+      border-radius: 40px;
+      width: 360px;
+      box-shadow: 0 10px 25px rgba(48, 48, 54, 0.15);
+      text-align: center;
+      font-family: "Sour Gummy", sans-serif;
+      font-weight: 100;
+      font-optical-sizing: auto;
+      font-style: normal;
+      font-variation-settings: "wdth" 100;
+      color: #303036;
+    }
+
+    .login-form h2 {
+      color: #FC5130;
+      margin-bottom: 2rem;
+      font-weight: 700;
+      font-size: 2rem;
+      letter-spacing: 0.05em;
+      font-family: "Fascinate Inline", system-ui;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      padding: 0.85rem 1.2rem;
+      font-size: 1rem;
+      border-radius: 30px;
+      border: 2px solid #303036;
+      background-color: #FFFAFF;
+      color: #050401;
+      transition: border-color 0.3s ease;
+    }
+
+    input:focus {
+      border-color: #30BCED;
+      outline: none;
+    }
+
+    button {
+      margin-top: 1rem;
+      padding: 0.85rem 0;
+      border-radius: 30px;
+      border: none;
+      background-color: #FC5130;
+      color: #fff;
+      font-size: 1.15rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-family: "Sour Gummy", sans-serif;
+      font-weight: 100;
+      font-optical-sizing: auto;
+      font-style: normal;
+      font-variation-settings: "wdth" 100;
+    }
+
+    button:hover {
+      background-color: #e0411f;
+    }
+
+    .signup {
+      margin-top: 1.5rem;
+      font-size: 1rem;
+      font-family: "Sour Gummy", sans-serif;
+      font-weight: 100;
+      font-optical-sizing: auto;
+      font-style: normal;
+      font-variation-settings: "wdth" 100;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-form">
+    <h2 id="welcome-message">Registrati su MyRecipe</h2>
+    <form action="/register" method="POST">
+      <input type="text" name="nome" placeholder="Nome" required autocomplete="given-name" />
+      <input type="text" name="cognome" placeholder="Cognome" required autocomplete="family-name" />
+      <input type="text" name="username" placeholder="Username" required autocomplete="username" />
+      <input type="email" name="email" placeholder="Email" required autocomplete="email" />
+      <input type="password" name="password" placeholder="Password" required autocomplete="new-password" />
+      <input type="password" name="confirmPassword" placeholder="Conferma Password" required autocomplete="new-password" />
+      <button type="submit">Registrati</button>
+    </form>
+    <p class="signup">Hai già un account? <a href="/login">Accedi qui</a></p>
+  </div>
+</body>
+</html>

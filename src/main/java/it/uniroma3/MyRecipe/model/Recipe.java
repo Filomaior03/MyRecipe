@@ -7,7 +7,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -17,8 +16,8 @@ public class Recipe { //con @Entity il framework sa che a Recipe bisogna associa
 	//@GeneratedValue(strategy = GenerationType.AUTO)
 
 	@Id	//chiave primaria della tabella
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ricetta_seq")
-	@SequenceGenerator(name = "ricetta_seq", sequenceName = "ricetta_seq", allocationSize = 1)	//incremento gli id di 1
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "recipe_seq")
+	@SequenceGenerator(name = "recipe_seq", sequenceName = "recipe_seq", allocationSize = 1)	//incremento gli id di 1
 	private Long id;
 
 	@NotNull
@@ -32,10 +31,13 @@ public class Recipe { //con @Entity il framework sa che a Recipe bisogna associa
 	private String provenienza;
 
 	@ManyToMany
-	private List<Ingrediente> ingredienti;
+	private List<Ingredient> ingredienti;
 	
 	@ManyToMany
 	private List<Utensile> utensili;
+	
+	@ManyToMany
+	private List<Utente> utenti;
 	
 	public Long getId() {
 		return id;
@@ -67,6 +69,10 @@ public class Recipe { //con @Entity il framework sa che a Recipe bisogna associa
 	
 	public void setProvenienza(String provenienza) {
 		this.provenienza = provenienza;
+	}
+	
+	public List<Ingredient> getIngredienti() {
+		return ingredienti;
 	}
 	
 	@Override

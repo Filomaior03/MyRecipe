@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" href="formNewRecipeStyle.css">
-  <title>NEW RECIPE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fascinate&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <title>New Recipe</title>
   <body>
     <h1>Per aggiungere una nuova ricetta, compila i seguenti campi:</h1>
-    <!--invio con una richiesta http POST le informazioni aggiunte a /recipe; viene popolato recipe-->
-    <form th:action="@{/recipe}" method="post" th:object="${recipe}">
+    <!--invio i dati alla pagina /recipe con una richiesta http POST e gli associo l'oggetto recipe nel controller-->
+    <form th:action="@{/recipe}" method="POST" th:object="${recipe}">
       
       <!--Gestione degli errori-->
       <!--con '#fields' thymeleaf accede agli errori di validazione-->

@@ -1,12 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="recipeStyle.css">
-    <title>RECIPE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fascinate&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Recipe</title>
   </head>
   <body>
     <h1>
-      IOP
+      <div>
+        <a th:text="${recipe.nome}"></a>
+      </div>
     </h1>
+    <h2>Ingredienti</h2>
+    <div>
+      <ol>
+        <li th:each="ingr : ${ingredients}">
+          <div th:text="${ingr.nome} '(' ${ingr.quantità} ')'"></div>
+        </li>
+      </ol>
+    </div>
+    <div>
+      <a th:href="@{/formNewIngredient}">Aggiungi ingrediente</a>
+    </div>
   </body>
 </html>

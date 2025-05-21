@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="formNewIngredients.css">
-    <title>NEW INGREDIENTS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fascinate&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>NEW INGREDIENT</title>
   </head>
   <body>
-    <h1>Aggiungi gli ingredienti per questa ricetta</h1>
+    <h1>Aggiungi un ingrediente a questa ricetta</h1>
+    <form action="@{/recipe}" method="POST" th:object="${recipe}"></form>
   </body>
 </html>

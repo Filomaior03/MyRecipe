@@ -8,12 +8,12 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotNull;
 
 @Entity	
-public class Ingrediente {
+public class Ingredient {
 	//@GeneratedValue(strategy = GenerationType.AUTO)
 
 	@Id	//chiave primaria della tabella
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ingrediente_seq")
-	@SequenceGenerator(name = "ingrediente_seq", sequenceName = "ingrediente_seq", allocationSize = 1)	//incremento gli id di 1
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ingredient_seq")
+	@SequenceGenerator(name = "ingredient_seq", sequenceName = "ingredient_seq", allocationSize = 1)	//incremento gli id di 1
 	private Long id;
 
 	@NotNull
@@ -48,7 +48,7 @@ public class Ingrediente {
 
 	@Override
 	public boolean equals(Object obj) {
-		Ingrediente i = (Ingrediente) obj;
+		Ingredient i = (Ingredient) obj;
 		return this.id == i.getId();
 	}
 
