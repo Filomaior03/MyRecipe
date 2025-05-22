@@ -14,29 +14,29 @@ import jakarta.transaction.Transactional;
 public class CredentialsService {
 
 	@Autowired
-	protected CredentialsRepository credenzialiRepository;
+	protected CredentialsRepository credentialsRepository;
 	
 	@Autowired
 	protected PasswordEncoder passwordEncoder;
 
 
 	@Transactional
-	public Credentials getCredenziali(Long id) {
-		Optional<Credentials> result = this.credenzialiRepository.findById(id);
+	public Credentials getCredentials(Long id) {
+		Optional<Credentials> result = this.credentialsRepository.findById(id);
 		return result.orElse(null);
 	}
 
 	@Transactional
-	public Credentials getCredenziali(String username) {
-		Optional<Credentials> result = this.credenzialiRepository.findByUsername(username);
+	public Credentials getCredentials(String username) {
+		Optional<Credentials> result = this.credentialsRepository.findByUsername(username);
 		return result.orElse(null);
 	}
 
 	@Transactional
-	public Credentials saveCredenziali(Credentials credenziali) {
-		credenziali.setRuolo(Credentials.DEFAULT_ROLE);
-		credenziali.setPassword(this.passwordEncoder.encode(credenziali.getPassword()));
-		return this.credenzialiRepository.save(credenziali);
+	public Credentials saveCredentials(Credentials credentials) {
+		credentials.setRuolo(Credentials.DEFAULT_ROLE);
+		credentials.setPassword(this.passwordEncoder.encode(credentials.getPassword()));
+		return this.credentialsRepository.save(credentials);
 	}
 
 }

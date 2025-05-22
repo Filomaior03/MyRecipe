@@ -9,8 +9,7 @@ import jakarta.persistence.SequenceGenerator;
 
 
 @Entity	
-public class Credentials { //con @Entity il framework sa che a Recipe bisogna associare una tabella nel database
-	//@GeneratedValue(strategy = GenerationType.AUTO)
+public class Credentials {
 
 	public static final String DEFAULT_ROLE = "DEFAULT";
 	public static final String ADMIN_ROLE = "ADMIN";
