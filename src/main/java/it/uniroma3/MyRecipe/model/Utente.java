@@ -27,6 +27,10 @@ public class Utente { //con @Entity il framework sa che a Recipe bisogna associa
 	@NotNull
 	@NotBlank
 	private String cognome;
+	
+	@NotNull
+	@NotBlank
+	private String email;
 		
 	@ManyToMany(mappedBy = "utenti")
 	private List<Recipe> ricetteFatte;
@@ -53,6 +57,14 @@ public class Utente { //con @Entity il framework sa che a Recipe bisogna associa
 	
 	public String getCognome() {
 		return cognome;
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	public String getEmail() {
+		return email;
 	}
 	
 	@Override

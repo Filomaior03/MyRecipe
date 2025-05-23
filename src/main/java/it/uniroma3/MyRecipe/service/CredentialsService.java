@@ -15,23 +15,25 @@ public class CredentialsService {
 
 	@Autowired
 	protected CredentialsRepository credentialsRepository;
-	
+
 	@Autowired
 	protected PasswordEncoder passwordEncoder;
 
-
+	//cerca le credenziali nel DB in base all'id
 	@Transactional
-	public Credentials getCredentials(Long id) {
+	public Credentials getCredentialsById(Long id) {
 		Optional<Credentials> result = this.credentialsRepository.findById(id);
 		return result.orElse(null);
 	}
 
+	//cerca le credenziali nel DB in base allo username
 	@Transactional
-	public Credentials getCredentials(String username) {
+	public Credentials getCredentialsByUsername(String username) {
 		Optional<Credentials> result = this.credentialsRepository.findByUsername(username);
 		return result.orElse(null);
 	}
 
+	//salva le credenziali nel DB, impostando il ruolo a DEFAULT e criptando la password
 	@Transactional
 	public Credentials saveCredentials(Credentials credentials) {
 		credentials.setRuolo(Credentials.DEFAULT_ROLE);
@@ -39,4 +41,22 @@ public class CredentialsService {
 		return this.credentialsRepository.save(credentials);
 	}
 
+	public boolean validateCredentials(String username, String rawPassword) {
+		Credentials result = getCredentialsByUsername(username);
+		
+		if(result == null)
+			return false;
+		return (passwordEncoder.matches(rawPassword, result.getPassword()));
+	}
+	
+	public boolean isAdmin(String username) {
+		Credentials result = getCredentialsByUsername(username);
+		
+		if(result == null)
+			return false;
+		return ("admin".equalsIgnoreCase(username));
+	}
 }
+
+
+

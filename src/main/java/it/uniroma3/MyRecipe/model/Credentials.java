@@ -6,6 +6,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Transient;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 
 @Entity	
@@ -19,14 +22,21 @@ public class Credentials {
 	@SequenceGenerator(name = "credentials_seq", sequenceName = "credentials_seq", allocationSize = 1)	//incremento gli id di 1
 	private Long id;
 
+	@NotNull
+	@NotBlank
 	private String username;
 
+	@NotNull
+	@NotBlank
 	private String password;
 	
 	private String ruolo;
 	
 	@OneToOne
 	private Utente utente;
+	
+	@Transient
+	private String confirmPassword;
 	
 	public Long getId() {
 		return id;
@@ -58,6 +68,14 @@ public class Credentials {
 	
 	public String getRuolo() {
 		return ruolo;
+	}
+	
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+	
+	public String getConfirmPassword() {
+		return confirmPassword;
 	}
 	
 	@Override
