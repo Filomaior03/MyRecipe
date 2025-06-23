@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Fascinate+Inline&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+  <title>Dashboard - MyRecipe</title>
+  <style>
+    * {
+      box-sizing: border-box; /* Includi padding e bordi nel calcolo della dimensione */
+    }
+
+    body {
+      margin: 0;
+      display: flex;
+      font-family: "Sour Gummy", sans-serif;
+      color: #303036;
+      height: 100vh; /* Altezza della finestra visibile */
+      background-color: #ffffff;
+    }
+
+    .sidebar {
+      background-color: #FC5130;
+      color: white;
+      width: 200px;
+      padding: 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      height: 100%; /* Altezza piena */
+      border-radius: 0 20px 20px 0;
+      justify-content: flex-start; /* Posizionamento dei link in alto */
+    }
+
+    .sidebar h2 {
+      font-family: "Fascinate Inline", system-ui;
+      font-size: 2rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 2rem;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: white;
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+      font-weight: 400;
+    }
+
+    .sidebar a:hover {
+      color: #30BCED;
+    }
+
+    .sidebar .logout {
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: 400;
+      border-top: 2px solid #fff;
+      margin-top: auto; /* Spinge il link "Esci" verso il fondo */
+    }
+
+    .sidebar .logout a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .sidebar .logout a:hover {
+      color: #30BCED;
+    }
+
+    .main-content {
+      flex-grow: 1;
+      padding: 3rem 3.5rem;
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-left: 0;
+      border-radius: 20px;
+      height: 100%; /* Altezza piena */
+      overflow: hidden; /* Evita lo scrolling */
+    }
+
+    h1 {
+      font-family: "Fascinate Inline", system-ui;
+      font-size: 2.5rem;
+      color: #FC5130;
+      margin-bottom: 1.5rem;
+    }
+
+    .button {
+      margin-top: 1.5rem;
+      padding: 0.85rem 0;
+      width: 100%;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 1.15rem;
+      font-family: "Sour Gummy", sans-serif;
+      color: #fff;
+      background-color: #FC5130;
+      text-align: center;
+      transition: background-color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: #e0411f;
+    }
+
+    .no-recipes {
+      color: #FC5130;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>MyRecipe</h2>
+    <!-- Spostato "Ricette salvate" più in alto -->
+    <a href="@{/savedRecipes}">Ricette salvate</a>
+
+    <!-- Link "Esci" posizionato in fondo alla barra laterale -->
+    <div class="logout">
+      <a href="@{/logout}">Esci</a>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <h1>Aggiungi una nuova ricetta</h1>
+    <div>
+      <a class="button" th:href="@{/formNewRecipe}">Aggiungi una nuova ricetta</a>
+    </div>
+  </div>
+</body>
+</html>

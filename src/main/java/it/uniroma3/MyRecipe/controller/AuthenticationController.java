@@ -19,8 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-
-@Controller
+@Controller			
 public class AuthenticationController {
 
 	@Autowired
@@ -46,7 +45,6 @@ public class AuthenticationController {
 	    //utente non loggato, torna alla pagina per fare il login
 	    return "formLogin";
 	}
-
 
 	//restituisce la dashboard a seconda di chi accede - NECESSARIA AUTENTICAZIONE
 	@GetMapping(value = "/dashboard")
