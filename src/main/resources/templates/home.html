@@ -1,86 +1,20 @@
 <!DOCTYPE html>
 <html lang="it">
+  
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Fascinate+Inline&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
   <title>Benvenuto su MyRecipe</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      background-color: #30BCED;
-      font-family: "Sour Gummy", sans-serif;
-      color: #303036;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .container {
-      background: #fff;
-      padding: 3rem 3.5rem;
-      border-radius: 40px;
-      width: 360px;
-      box-shadow: 0 10px 25px rgba(48, 48, 54, 0.15);
-      text-align: center;
-      user-select: none;
-    }
-
-    .icon {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      color: #30BCED;
-      user-select: none;
-    }
-
-    h1 {
-      font-family: "Fascinate Inline", system-ui;
-      font-weight: 400;
-      font-size: 2.5rem;
-      color: #FC5130;
-      margin-bottom: 1rem;
-      letter-spacing: 0.05em;
-    }
-
-    p.subtitle {
-      font-size: 1.15rem;
-      margin-bottom: 2rem;
-      color: #303036;
-      font-weight: 100;
-      font-variation-settings: "wdth" 100;
-    }
-
-    a.button {
-      display: block;
-      margin: 0.9rem auto;
-      padding: 0.85rem 0;
-      width: 100%;
-      border-radius: 30px;
-      font-size: 1.15rem;
-      font-weight: 100;
-      text-decoration: none;
-      font-family: "Sour Gummy", sans-serif;
-      font-variation-settings: "wdth" 100;
-      color: #fff;
-      background-color: #FC5130;
-      box-shadow: 0 10px 25px rgba(252, 81, 48, 0.25);
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
-    }
-
-    a.button:hover {
-      background-color: #e0411f;
-      box-shadow: 0 12px 30px rgba(224, 65, 31, 0.4);
-    }
-  </style>
+  <link rel="stylesheet" th:href="/style.css">
 </head>
+
 <body>
   <div class="container">
     <div class="icon">🍳</div>
     <h1>Benvenuto su MyRecipe</h1>
-    <p class="subtitle">Scopri, crea e condividi ricette deliziose!</p>
+    <p class="subtitle">Crea e salva ricette deliziose!</p>
     <a class="button" th:href="@{/login}" th:text="Accedi">Accedi</a>
     <a class="button" th:href="@{/register}" th:text="Registrati">Registrati</a>
   </div>

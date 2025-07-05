@@ -2,13 +2,11 @@ package it.uniroma3.MyRecipe.model;
 
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -31,6 +29,8 @@ public class Ricetta { //con @Entity il framework sa che a Recipe bisogna associ
   private String provenienza;
   
   private String categoria;
+
+  private String img; 
   
   @Column(length = 2000)
   private String procedimento;
@@ -78,6 +78,14 @@ public class Ricetta { //con @Entity il framework sa che a Recipe bisogna associ
     return procedimento;
   }
   
+  public void setImg(String img) {
+    this.img = img;
+  }
+
+  public String getImg() {
+    return img;
+  }
+
   public void setIngredienti(List<Ingrediente> ingredienti) {
     this.ingredienti = ingredienti;
   }
