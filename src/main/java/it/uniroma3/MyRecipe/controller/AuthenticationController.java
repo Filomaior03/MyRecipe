@@ -9,9 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
-import it.uniroma3.MyRecipe.model.Credentials;
+import it.uniroma3.MyRecipe.model.Credenziali;
 import it.uniroma3.MyRecipe.model.Utente;
-import it.uniroma3.MyRecipe.service.CredentialsService;
+import it.uniroma3.MyRecipe.service.CredenzialiService;
 import it.uniroma3.MyRecipe.service.UtenteService;
 import jakarta.validation.Valid;
 
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class AuthenticationController {
 
 	@Autowired
-	private CredentialsService credentialsService;
+	private CredenzialiService credentialsService;
 	
 	@Autowired
 	private UtenteService utenteService;
@@ -63,13 +63,13 @@ public class AuthenticationController {
 	@GetMapping(value = "/register")
 	public String showRegisterForm(Model model) {
 		model.addAttribute("utente", new Utente());
-		model.addAttribute("credentials", new Credentials());
+		model.addAttribute("credentials", new Credenziali());
 		return "formRegister";
 	}
 	
 	@PostMapping(value = "/register")
 	public String saveCredentials(@Valid @ModelAttribute("utente") Utente utente, BindingResult brU, 
-			@Valid @ModelAttribute("credentials") Credentials credentials, BindingResult brC, Model model) {
+			@Valid @ModelAttribute("credentials") Credenziali credentials, BindingResult brC, Model model) {
 		if(brU.hasErrors() || brC.hasErrors())
 			return "formRegister";
 		

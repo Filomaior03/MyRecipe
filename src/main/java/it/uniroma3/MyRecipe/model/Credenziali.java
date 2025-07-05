@@ -5,21 +5,19 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 
 @Entity	
-public class Credentials {
+public class Credenziali {
 
-	public static final String DEFAULT_ROLE = "DEFAULT";
+	public static final String DEFAULT_ROLE = "UTENTE";
 	public static final String ADMIN_ROLE = "ADMIN";
 	
 	@Id	//chiave primaria della tabella
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "credentials_seq")
-	@SequenceGenerator(name = "credentials_seq", sequenceName = "credentials_seq", allocationSize = 1)	//incremento gli id di 1
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@NotNull
@@ -32,7 +30,7 @@ public class Credentials {
 	
 	private String ruolo;
 	
-	@OneToOne
+	@OneToOne(mappedBy = "credenziali")
 	private Utente utente;
 	
 	@Transient
@@ -80,7 +78,7 @@ public class Credentials {
 	
 	@Override
 	public boolean equals(Object obj) {
-		Recipe r = (Recipe) obj;
+		Ricetta r = (Ricetta) obj;
 		return this.id == r.getId();
 	}
 

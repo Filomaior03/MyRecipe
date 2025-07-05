@@ -6,43 +6,43 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import it.uniroma3.MyRecipe.model.Credentials;
-import it.uniroma3.MyRecipe.repository.CredentialsRepository;
+import it.uniroma3.MyRecipe.model.Credenziali;
+import it.uniroma3.MyRecipe.repository.CredenzialiRepository;
 import jakarta.transaction.Transactional;
 
 @Service
-public class CredentialsService {
+public class CredenzialiService {
 
 	@Autowired
-	protected CredentialsRepository credentialsRepository;
+	protected CredenzialiRepository credentialsRepository;
 
 	@Autowired
 	protected PasswordEncoder passwordEncoder;
 
 	//cerca le credenziali nel DB in base all'id
 	@Transactional
-	public Credentials getCredentialsById(Long id) {
-		Optional<Credentials> result = this.credentialsRepository.findById(id);
+	public Credenziali getCredentialsById(Long id) {
+		Optional<Credenziali> result = this.credentialsRepository.findById(id);
 		return result.orElse(null);
 	}
 
 	//cerca le credenziali nel DB in base allo username
 	@Transactional
-	public Credentials getCredentialsByUsername(String username) {
-		Optional<Credentials> result = this.credentialsRepository.findByUsername(username);
+	public Credenziali getCredentialsByUsername(String username) {
+		Optional<Credenziali> result = this.credentialsRepository.findByUsername(username);
 		return result.orElse(null);
 	}
 
 	//salva le credenziali nel DB, impostando il ruolo a DEFAULT e criptando la password
 	@Transactional
-	public Credentials saveCredentials(Credentials credentials) {
-		credentials.setRuolo(Credentials.DEFAULT_ROLE);
+	public Credenziali saveCredentials(Credenziali credentials) {
+		credentials.setRuolo(Credenziali.DEFAULT_ROLE);
 		credentials.setPassword(this.passwordEncoder.encode(credentials.getPassword()));
 		return this.credentialsRepository.save(credentials);
 	}
 
 	public boolean validateCredentials(String username, String rawPassword) {
-		Credentials result = getCredentialsByUsername(username);
+		Credenziali result = getCredentialsByUsername(username);
 		
 		if(result == null)
 			return false;
@@ -50,7 +50,7 @@ public class CredentialsService {
 	}
 	
 	public boolean isAdmin(String username) {
-		Credentials result = getCredentialsByUsername(username);
+		Credenziali result = getCredentialsByUsername(username);
 		
 		if(result == null)
 			return false;

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
-import it.uniroma3.MyRecipe.model.Ingredient;
-import it.uniroma3.MyRecipe.model.Recipe;
+import it.uniroma3.MyRecipe.model.Ingrediente;
+import it.uniroma3.MyRecipe.model.Ricetta;
 import it.uniroma3.MyRecipe.service.*;
 import jakarta.validation.Valid;
 
@@ -18,9 +18,9 @@ import jakarta.validation.Valid;
 
 //classe che gestisce le richieste http tramite metodi Java
 @Controller
-public class RecipeController {
+public class Pages {
 
-	@Autowired RecipeService recipeService;
+	@Autowired RicettaService recipeService;
 
 	//mostra la lista di tutte  le ricette
 	@GetMapping("/recipes")
@@ -39,13 +39,13 @@ public class RecipeController {
 	//riporta una pagina html che permette di creare una nuova ricetta
 	@GetMapping("/formNewRecipe")
 	public String formNewRecipe(Model model) {
-		model.addAttribute("recipe", new Recipe());
+		model.addAttribute("recipe", new Ricetta());
 		return "formNewRecipe.html";
 	}
 
 	//riceve i dati e valida i campi di una nuova ricetta dopo averla appena creata
 	@PostMapping("/recipe")
-	public String saveNewRecipe(@Valid @ModelAttribute("recipe") Recipe recipe, BindingResult bindingResult, Model model) {
+	public String saveNewRecipe(@Valid @ModelAttribute("recipe") Ricetta recipe, BindingResult bindingResult, Model model) {
 		if(bindingResult.hasErrors())	//gli errori di validazione sono catturati da bindingResult
 			return "formNewRecipe.html";	//torno alla stessa pagina
 
@@ -58,7 +58,7 @@ public class RecipeController {
 	//mostra la pagina di una ricetta specifica (id) esistente
 	@GetMapping("/recipe/{id}")
 	public String showRecipe(@PathVariable("id") Long id, Model model) {
-		Recipe recipe = this.recipeService.getRecipeById(id);
+		Ricetta recipe = this.recipeService.getRecipeById(id);
 		model.addAttribute("recipe", recipe);
 		model.addAttribute("ingredients", recipe.getIngredienti());	
 		return "recipe.html";
@@ -66,7 +66,7 @@ public class RecipeController {
 
 	@GetMapping("/formNewIngredient")
 	public String formNewIngredient(Model model) {
-		model.addAttribute("ingr", new Ingredient());
+		model.addAttribute("ingr", new Ingrediente());
 		return "formNewIngredient.html";
 	}
 	

@@ -152,7 +152,7 @@
     <div th:if="${!#lists.isEmpty(savedRecipes)}">
       <div class="recipes-list">
         <div th:each="recipe : ${savedRecipes}" class="recipe-item">
-          <p th:text="${recipe.name}"></p> <!-- Sostituisci "name" con il campo della ricetta che vuoi visualizzare -->
+          <p th:text="${ricetta.nome}"></p> <!-- Sostituisci "name" con il campo della ricetta che vuoi visualizzare -->
         </div>
       </div>
     </div>
