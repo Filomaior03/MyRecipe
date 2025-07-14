@@ -23,69 +23,51 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class AuthenticationController {
 
 	@Autowired
-	private CredenzialiService credentialsService;
-	
+	private CredenzialiService credenzialiService;
+
 	@Autowired
 	private UtenteService utenteService;
-
-	//restituisce la home - PUBBLICA
-	@GetMapping(value = "/") 
-	public String showHome() {
-		return "home";
-	}
 
 	//restituisce la pagina per il login - PUBBLICA
 	@GetMapping("/login")
 	public String showLoginForm() {
-	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	    if (auth != null && auth.isAuthenticated() && !(auth instanceof AnonymousAuthenticationToken)) {
-	        //utente già loggato, redirect alla dashboard
-	        return "redirect:/dashboard";
-	    }
-	    //utente non loggato, torna alla pagina per fare il login
-	    return "formLogin";
-	}
-
-	//restituisce la dashboard a seconda di chi accede - NECESSARIA AUTENTICAZIONE
-	@GetMapping(value = "/dashboard")
-	public String showDashboard() {
-		//recupero le credenziali dell'utente che ha fatto l'accesso
-		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-		//se è un admin
-		if (credentialsService.isAdmin(userDetails.getUsername())) {
-			return "admin/dashboard.html";	//dashboard dell'admin
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		//
+		if (auth != null && auth.isAuthenticated() && !(auth instanceof AnonymousAuthenticationToken)) {
+			//utente già loggato, redirect alla dashboard
+			return "redirect:/index";
 		}
-		return "dashboard";	//dashboard per gli utenti normali
-	}
-
-	//restituisce la pagina per la registrazione - PUBBLICA
-	@GetMapping(value = "/register")
-	public String showRegisterForm(Model model) {
-		model.addAttribute("utente", new Utente());
-		model.addAttribute("credentials", new Credenziali());
-		return "formRegister";
+		//utente non loggato, torna alla pagina per fare il login
+		return "login";
 	}
 	
-	@PostMapping(value = "/register")
-	public String saveCredentials(@Valid @ModelAttribute("utente") Utente utente, BindingResult brU, 
-			@Valid @ModelAttribute("credentials") Credenziali credentials, BindingResult brC, Model model) {
+	//restituisce la pagina per la registrazione - PUBBLICA
+	@GetMapping("/register")
+	public String showRegisterForm(Model model) {
+		model.addAttribute("utente", new Utente());
+		model.addAttribute("credenziali", new Credenziali());
+		return "register";
+	}
+	
+	@PostMapping("/register")
+	public String saveCredenziali(@Valid @ModelAttribute("utente") Utente utente, BindingResult brU, 
+			@Valid @ModelAttribute("credenziali") Credenziali credenziali, BindingResult brC, Model model) {
 		if(brU.hasErrors() || brC.hasErrors())
-			return "formRegister";
+			return "register";
 		
 		//la conferma della password non va a buon fine
-		if(!credentials.getPassword().equals(credentials.getConfirmPassword())) {
+		if(!credenziali.getPassword().equals(credenziali.getConfirmPassword())) {
 			//messaggio di errore
 			brC.rejectValue("confirmPassword", "error.confirmPassword", "Le password non coincidono");
-			return "formRegister";
+			return "register";
 		}
 		
 		//nessun errore nella registrazione, salvo l'utente e le sue credenziali e faccio fare all'utente il login
 		else{
 			this.utenteService.saveUtente(utente);
-			this.credentialsService.saveCredentials(credentials);
+			this.credenzialiService.saveCredenziali(credenziali);
 			model.addAttribute("utente", utente);
 		}
-		return "redirect:/login";
+		return "redirect:/login";	//reindirizzo il nuovo utente alla pagina di login per autenticarsi
 	}
 }

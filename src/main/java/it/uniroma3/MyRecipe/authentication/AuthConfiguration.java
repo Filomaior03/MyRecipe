@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -14,6 +15,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import static it.uniroma3.MyRecipe.model.Credenziali.ADMIN_ROLE;
+import static it.uniroma3.MyRecipe.model.Credenziali.DEFAULT_ROLE;
 
 /* CLASSE DI CONFIGURAZIONE PER LA SICUREZZA */
 
@@ -28,8 +32,8 @@ public class AuthConfiguration {
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.jdbcAuthentication()
 		.dataSource(dataSource)
-		.usersByUsernameQuery("SELECT username, password, 1 as enabled FROM credentials WHERE username=?")
-		.authoritiesByUsernameQuery("SELECT username, role from credentials WHERE username=?");
+		.usersByUsernameQuery("SELECT username, password, 1 as enabled FROM credenziali WHERE username=?")
+		.authoritiesByUsernameQuery("SELECT username, ruolo from credenziali WHERE username=?");
 	}
 
 	@Bean
@@ -46,9 +50,12 @@ public class AuthConfiguration {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 		.csrf(csrf -> csrf.disable())
+		
 		.authorizeHttpRequests(auth -> auth
 				//questi path sono raggiungibili da tutti senza autenticarsi 
-				.requestMatchers("/", "/login", "/register", "/css/**", "/images/**", "/favicon.ico").permitAll()
+				.requestMatchers(HttpMethod.GET, "/", "/index", "/register", "/css/style.css", "/images/**", "/logo/**").permitAll()
+				.requestMatchers(HttpMethod.POST, "/register").permitAll()
+				.requestMatchers("/ricetta/**").hasAnyAuthority(ADMIN_ROLE, DEFAULT_ROLE)
 				//tutte le altre necessitano invece di autenticarsi
 				.anyRequest().authenticated()
 				)
@@ -57,7 +64,7 @@ public class AuthConfiguration {
 				.loginPage("/login")
 				.permitAll()
 				//pagina da restituire se il login va a buon fine
-				.defaultSuccessUrl("/dashboard", true)
+				.defaultSuccessUrl("/index", true)
 				.failureUrl("/login?error=true")
 				)
 		.logout(logout -> logout

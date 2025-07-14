@@ -10,18 +10,18 @@ import it.uniroma3.MyRecipe.repository.RicettaRepository;
 @Service
 public class RicettaService {
 	
-	@Autowired private RicettaRepository recipeRepository;	//istanza costruita e inizializzata dal framework
+	@Autowired private RicettaRepository ricettaRepository;	//istanza costruita e inizializzata dal framework
 	
 	public Iterable<Ricetta> getAllRecipes(){
-		return this.recipeRepository.findAll();
+		return this.ricettaRepository.findAll();
 	}
 
     public void save(Ricetta recipe) {
-        this.recipeRepository.save(recipe);
+        this.ricettaRepository.save(recipe);
     }
 	
 	public Ricetta getRecipeById(Long id) {
-		return this.recipeRepository.findById(id).get();
+		return this.ricettaRepository.findById(id).get();
 	}
 
 //	

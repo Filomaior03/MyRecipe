@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Fascinate+Inline&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <title>MyRecipe</title>
+  
+  <!-- Favicon base -->
+  <link rel="icon" href="/logo/favicon.ico" type="image/x-icon">
+  
+  <!-- Favicon PNG -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/logo/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/logo/favicon-16x16.png">
+  
+  <!-- Manifest -->
+  <link rel="manifest" href="/logo/manifest.json">
+  
+</head>
+
+<body>
+  
+  <!-- Import del frammento header -->
+  <div th:replace="moduli/header :: header"></div>
+  
+  <main class="recipe-container">
+    <!-- Iterazione dinamica -->
+    <div class="recipe-card" th:each="ricetta : ${ricette}">
+      <img th:src="@{'/' + ${ricetta.img}}" th:alt="'Foto di ' + ${ricetta.nome}" class="recipe-image" />
+      <div class="recipe-info">
+        <p th:text="'Nome: ' + ${ricetta.nome}">Nome: Carbonara</p>
+        <p th:text="'Provenienza: ' + ${ricetta.provenienza}">Provenienza: Italia</p>
+        <a th:href="@{'/ricetta/' + ${ricetta.id}}" class="recipe-details-link">Dettagli</a>
+      </div>
+    </div>
+  </main>
+  
+</body>
+</html>

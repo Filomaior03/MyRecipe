@@ -21,9 +21,7 @@ public class Ingrediente {
   
   @NotNull
   private String quantità;
-  
-  private String dose; 
-  
+    
   @ManyToMany
   private List<Ricetta> ricette;
   
@@ -49,14 +47,6 @@ public class Ingrediente {
   
   public void setQuantità(String quantità) {
     this.quantità = quantità;
-  }
-  
-  public void setDose(String dose) {
-    this.dose = dose;
-  }
-  
-  public String getDose() {
-    return dose;
   }
   
   public void setRicette(List<Ricetta> ricette) {

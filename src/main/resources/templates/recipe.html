@@ -1,26 +1,51 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link href="https://fonts.googleapis.com/css2?family=Fascinate&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <title>Recipe</title>
-  </head>
-  <body>
-    <h1>
-      <div>
-        <a th:text="${recipe.nome}"></a>
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Fascinate&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <title>Ricetta</title>
+</head>
+<body>
+  
+  <!-- Import del frammento header -->
+  <div th:replace="moduli/header :: header"></div>
+  
+  <div class="ricetta-dettaglio">
+    <!-- Immagine della ricetta -->
+    <div class="ricetta-dettaglio-immagine">
+      <img th:src="@{'/' + ${ricetta.img}}" th:alt="${ricetta.nome}">
+    </div>
+    
+    <!-- Contenuto a destra -->
+    <div class="ricetta-dettaglio-contenuto">
+      <h1 th:text="${ricetta.nome}" class="ricetta-dettaglio-titolo">Nome della Ricetta</h1>
+      
+      <div class="ricetta-dettaglio-info">
+        <div th:text="${ricetta.tempoDiPreparazione}">Tempo: 45 minuti</div>
+        <div th:text="'Per: ' + ${ricetta.dose}">Per: 4 persone</div>
       </div>
-    </h1>
-    <h2>Ingredienti</h2>
-    <div>
-      <ol>
-        <li th:each="ingr : ${ingredients}">
-          <div th:text="${ingr.nome} '(' ${ingr.quantità} ')'"></div>
-        </li>
-      </ol>
+      
+      <div class="ricetta-dettaglio-ingredienti">
+        <h2>Ingredienti</h2>
+        <ul>
+          <li th:each="ingr : ${ingredienti}"
+          th:text="${ingr.nome + ' (' + ingr.quantità + ')'}">Ingrediente 1 (quantità)</li>
+        </ul>
+      </div>
+      
+      <div class="ricetta-dettaglio-procedimento">
+        <h2>Procedimento</h2>
+        <p th:text="${ricetta.procedimento}">
+          Descrizione dettagliata dei passaggi per preparare la ricetta.
+        </p>
+      </div>
+      
+      <div class="ricetta-dettaglio-meta">
+        <div th:text="'Provenienza: ' + ${ricetta.provenienza}">Provenienza: Italia</div>
+        <div th:text="'Categoria: ' + ${ricetta.categoria}">Categoria: Dessert</div>
+      </div>
     </div>
-    <div>
-      <a th:href="@{/formNewIngredient}">Aggiungi ingrediente</a>
-    </div>
-  </body>
+  </div>
+</body>
 </html>

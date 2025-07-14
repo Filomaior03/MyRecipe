@@ -12,7 +12,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity	
-public class Ricetta { //con @Entity il framework sa che a Recipe bisogna associare una tabella nel database
+public class Ricetta { //con @Entity il framework sa che a Ricetta bisogna associare una tabella nel database
   
   @Id	//chiave primaria della tabella
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,7 +29,9 @@ public class Ricetta { //con @Entity il framework sa che a Recipe bisogna associ
   private String provenienza;
   
   private String categoria;
-
+  
+  private String dose;
+  
   private String img; 
   
   @Column(length = 2000)
@@ -78,14 +80,22 @@ public class Ricetta { //con @Entity il framework sa che a Recipe bisogna associ
     return procedimento;
   }
   
+  public void setDose(String dose) {
+    this.dose = dose;
+  }
+  
+  public String getDose() {
+    return dose;
+  }
+  
   public void setImg(String img) {
     this.img = img;
   }
-
+  
   public String getImg() {
     return img;
   }
-
+  
   public void setIngredienti(List<Ingrediente> ingredienti) {
     this.ingredienti = ingredienti;
   }
