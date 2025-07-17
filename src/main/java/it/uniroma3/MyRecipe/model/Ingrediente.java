@@ -18,9 +18,6 @@ public class Ingrediente {
   
   @NotNull
   private String nome;
-  
-  @NotNull
-  private String quantità;
     
   @ManyToMany
   private List<Ricetta> ricette;
@@ -40,15 +37,7 @@ public class Ingrediente {
   public void setNome(String nome) {
     this.nome = nome;
   }
-  
-  public String getQuantità() {
-    return this.quantità;
-  }
-  
-  public void setQuantità(String quantità) {
-    this.quantità = quantità;
-  }
-  
+
   public void setRicette(List<Ricetta> ricette) {
     this.ricette = ricette;
   }

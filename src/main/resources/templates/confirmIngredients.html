@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Ingredienti disponibili</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fascinate+Inline&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fascinate&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    #erroreIngrediente {
+      display: none;
+      color: white;
+      background-color: red;
+      padding: 10px;
+      border-radius: 6px;
+      text-align: center;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  
+  <th:block th:replace="~{moduli/header :: header}"></th:block>
+  
+  <div class="form-lista-wrapper-aggiornata">
+    <!-- Lista degli ingredienti presenti nel DB -->
+    <section class="lista-ingredienti-wrapper-aggiornata">
+      <h2>Ingredienti presenti:</h2>
+      <ul class="lista-ingredienti-aggiornata" th:if="${ingredienti}">
+        <li th:each="ingr : ${ingredienti}" class="ingrediente-item" th:data-id="${ingr.id}">
+          <span th:text="${ingr.nome}"></span>
+        </li>
+      </ul>
+    </section>
+  </div>
+  
+  <!-- Lista degli ingredienti aggiunti nella sessione -->
+  <section class="lista-ingredientiAggiunti-wrapper">
+    <h2>Ingredienti aggiunti:</h2>
+    <ul class="lista-ingredientiAggiunti" th:if="${ingredientiAggiunti}">
+      <li th:each="ingr, iterStat : ${ingredientiAggiunti}" class="ingrediente-chip">
+        <button type="button" class="btn-remove" th:attr="data-index=${iterStat.index}">
+          <span th:text="${ingr.nome}"></span> <span class="remove-x">x</span>
+        </button>
+      </li>
+    </ul>
+  </section>
+</div>
+
+</body>
+</html>

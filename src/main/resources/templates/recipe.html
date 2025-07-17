@@ -8,8 +8,18 @@
 </head>
 <body>
   
+  <!-- Favicon base -->
+  <link rel="icon" href="/logo/favicon.ico" type="image/x-icon">
+  
+  <!-- Favicon PNG -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/logo/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/logo/favicon-16x16.png">
+  
+  <!-- Manifest -->
+  <link rel="manifest" href="/logo/manifest.json">
+  
   <!-- Import del frammento header -->
-  <div th:replace="moduli/header :: header"></div>
+  <th:block th:replace="~{moduli/header :: header}"></th:block>
   
   <div class="ricetta-dettaglio">
     <!-- Immagine della ricetta -->
@@ -23,14 +33,16 @@
       
       <div class="ricetta-dettaglio-info">
         <div th:text="${ricetta.tempoDiPreparazione}">Tempo: 45 minuti</div>
-        <div th:text="'Per: ' + ${ricetta.dose}">Per: 4 persone</div>
+
+        <!-- <div th:text="'Per: ' + ${ricetta.dose}">Per: 4 persone</div>-->
+      
       </div>
       
       <div class="ricetta-dettaglio-ingredienti">
         <h2>Ingredienti</h2>
         <ul>
           <li th:each="ingr : ${ingredienti}"
-          th:text="${ingr.nome + ' (' + ingr.quantità + ')'}">Ingrediente 1 (quantità)</li>
+          th:text="${ingr.nome}"> Ingrediente 1 (quantità)</li>
         </ul>
       </div>
       

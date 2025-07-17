@@ -22,15 +22,13 @@ public class Ricetta { //con @Entity il framework sa che a Ricetta bisogna assoc
   @NotBlank
   private String nome;
   
-  @NotNull
-  @NotBlank
   private String tempoDiPreparazione;
   
+  @NotBlank
   private String provenienza;
   
+  @NotBlank
   private String categoria;
-  
-  private String dose;
   
   private String img; 
   
@@ -78,14 +76,6 @@ public class Ricetta { //con @Entity il framework sa che a Ricetta bisogna assoc
   
   public String getProcedimento() {
     return procedimento;
-  }
-  
-  public void setDose(String dose) {
-    this.dose = dose;
-  }
-  
-  public String getDose() {
-    return dose;
   }
   
   public void setImg(String img) {

@@ -7,5 +7,5 @@ import it.uniroma3.MyRecipe.model.Ingrediente;
 
 @Repository
 public interface IngredienteRepository extends CrudRepository<Ingrediente, Long>{
-
+	
 }

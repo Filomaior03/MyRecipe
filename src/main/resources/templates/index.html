@@ -6,7 +6,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Fascinate+Inline&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" th:href="@{/css/style.css}">
-  <title>MyRecipe</title>
+  <title>My Recipe</title>
   
   <!-- Favicon base -->
   <link rel="icon" href="/logo/favicon.ico" type="image/x-icon">
@@ -23,7 +23,7 @@
 <body>
   
   <!-- Import del frammento header -->
-  <div th:replace="moduli/header :: header"></div>
+  <th:block th:replace="~{moduli/header :: header}"></th:block>
   
   <main class="recipe-container">
     <!-- Iterazione dinamica -->
@@ -32,10 +32,13 @@
       <div class="recipe-info">
         <p th:text="'Nome: ' + ${ricetta.nome}">Nome: Carbonara</p>
         <p th:text="'Provenienza: ' + ${ricetta.provenienza}">Provenienza: Italia</p>
-        <a th:href="@{'/ricetta/' + ${ricetta.id}}" class="recipe-details-link">Dettagli</a>
+        <a th:href="@{'/recipe/' + ${ricetta.id}}" class="recipe-details-link">Dettagli</a>
       </div>
     </div>
   </main>
   
+  <!-- Bottone Aggiungi Ricetta (visibile solo se loggato) -->
+  <a class="add-recipe-button" th:if="${userDetails != null}" th:href="@{/newRecipe}">Aggiungi ricetta</a>
+
 </body>
 </html>
