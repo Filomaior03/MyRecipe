@@ -7,30 +7,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Fascinate&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
-  <style>
-    #erroreIngrediente {
-      display: none;
-      color: white;
-      background-color: red;
-      padding: 10px;
-      border-radius: 6px;
-      text-align: center;
-      font-weight: bold;
-      margin-top: 20px;
-    }
-  </style>
 </head>
 <body>
   
   <th:block th:replace="~{moduli/header :: header}"></th:block>
   
   <div class="form-lista-wrapper">
-    <form th:action="@{/ingredient}" method="POST" th:object="${ingr}" class="form-nuovo-ingrediente">
-      <h1>Aggiungi un ingrediente da selezionare per la ricetta</h1>
+    <form th:action="@{/addIngredient}" method="POST" th:object="${ingr}" class="form-nuovo-ingrediente">
+      <h1>Aggiungi un nuovo ingrediente</h1>
       
       <div class="campo">
         <label for="nome">Nome ingrediente:</label>
-        <input type="text" id="nome" th:field="*{nome}" placeholder="Es. Pomodoro" required />
+        <input type="text" id="nome" th:field="*{nome}" placeholder="Es. Pomodoro"/>
         <span class="errore-campo" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
       </div>
       
@@ -38,13 +26,13 @@
         <!-- Bottone Aggiungi ingrediente -->
         <button type="submit">Aggiungi ingrediente</button>
         <!-- Bottone Conferma -->
-        <a th:href="@{/confirmIngredients}" class="bottone-conferma">Conferma</a>
+        <a th:href="@{/index}" class="bottone-conferma">Conferma</a>
       </div>
     </form>
     
     <!-- Lista degli ingredienti presenti nel DB -->
     <section class="lista-ingredienti-wrapper">
-      <h2>Ingredienti presenti:</h2>
+      <h2>Ingredienti presenti aggiornati:</h2>
       <ul class="lista-ingredienti" th:if="${ingredienti}">
         <li th:each="ingr : ${ingredienti}" class="ingrediente-item" th:data-id="${ingr.id}">
           <span th:text="${ingr.nome}"></span>

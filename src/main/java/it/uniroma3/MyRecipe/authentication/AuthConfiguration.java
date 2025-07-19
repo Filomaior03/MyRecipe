@@ -55,7 +55,7 @@ public class AuthConfiguration {
 				//questi path sono raggiungibili da tutti senza autenticarsi 
 				.requestMatchers(HttpMethod.GET, "/", "/index", "/register", "/css/style.css", "/images/**", "/logo/**").permitAll()
 				.requestMatchers(HttpMethod.POST, "/register").permitAll()
-				.requestMatchers("/ricetta/**").hasAnyAuthority(ADMIN_ROLE, DEFAULT_ROLE)
+				.requestMatchers("/recipe/**").hasAnyAuthority(ADMIN_ROLE, DEFAULT_ROLE)
 				//tutte le altre necessitano invece di autenticarsi
 				.anyRequest().authenticated()
 				)
@@ -70,10 +70,10 @@ public class AuthConfiguration {
 		.logout(logout -> logout
 				.logoutUrl("/logout")
 				//pagina da restituire se il logout va a buon fine
-				.logoutSuccessUrl("/")
+				.logoutSuccessUrl("/index")
 				.invalidateHttpSession(true)
 				.deleteCookies("JSESSIONID")
-				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
 				.clearAuthentication(true)
 				);
 		

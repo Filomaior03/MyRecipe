@@ -21,7 +21,6 @@
 </head>
 
 <body>
-  
   <!-- Import del frammento header -->
   <th:block th:replace="~{moduli/header :: header}"></th:block>
   
@@ -32,13 +31,21 @@
       <div class="recipe-info">
         <p th:text="'Nome: ' + ${ricetta.nome}">Nome: Carbonara</p>
         <p th:text="'Provenienza: ' + ${ricetta.provenienza}">Provenienza: Italia</p>
+        <div>
         <a th:href="@{'/recipe/' + ${ricetta.id}}" class="recipe-details-link">Dettagli</a>
+        <a class="modifica-button"
+          th:if="${isAdmin or (ricetta.utente != null and utenteCorrente != null and ricetta.utente.equals(utenteCorrente))}"
+          th:href="@{'/deleteRecipe/' + ${ricetta.id}}">Elimina</a>
+        </div>
       </div>
     </div>
   </main>
   
   <!-- Bottone Aggiungi Ricetta (visibile solo se loggato) -->
-  <a class="add-recipe-button" th:if="${userDetails != null}" th:href="@{/newRecipe}">Aggiungi ricetta</a>
-
+  <div class="add-recipe-buttons-wrapper">
+    <a class="add-recipe-button" th:if="${userDetails != null}" th:href="@{/addIngredient}">Aggiungi ingrediente</a>
+    <a class="add-recipe-button" th:if="${userDetails != null}" th:href="@{/newRecipe}">Aggiungi ricetta</a>
+  </div>
+  
 </body>
 </html>

@@ -2,52 +2,88 @@
 <html>
 <head>
   <meta charset="UTF-8" />
-  <title>Ingredienti disponibili</title>
+  <title>Seleziona ingredienti</title>
   <link href="https://fonts.googleapis.com/css2?family=Fascinate+Inline&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Fascinate&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
-  <style>
-    #erroreIngrediente {
-      display: none;
-      color: white;
-      background-color: red;
-      padding: 10px;
-      border-radius: 6px;
-      text-align: center;
-      font-weight: bold;
-      margin-top: 20px;
-    }
-  </style>
 </head>
 <body>
   
   <th:block th:replace="~{moduli/header :: header}"></th:block>
   
-  <div class="form-lista-wrapper-aggiornata">
-    <!-- Lista degli ingredienti presenti nel DB -->
-    <section class="lista-ingredienti-wrapper-aggiornata">
+  <div class="form-lista-wrapper" style="display: flex; justify-content: space-between;">
+    <!-- Lista degli ingredienti presenti nel DB (a sinistra) -->
+    <section class="lista-ingredienti-wrapper" style="flex: 1;">
       <h2>Ingredienti presenti:</h2>
-      <ul class="lista-ingredienti-aggiornata" th:if="${ingredienti}">
+      <ul class="lista-ingredienti" th:if="${ingredienti}">
         <li th:each="ingr : ${ingredienti}" class="ingrediente-item" th:data-id="${ingr.id}">
           <span th:text="${ingr.nome}"></span>
         </li>
       </ul>
+        <a th:href="@{/}" class="bottone-conferma-link">Conferma</a>
+      </div>
+    </section>
+    
+    <!-- Lista degli ingredienti aggiunti (a destra) -->
+    <section id="ingredientiAggiuntiWrapper" class="lista-ingredientiAggiunti-wrapper" style="flex: 1; margin-left: 20px; display: none;">
+      <h2>Ingredienti aggiunti:</h2>
+      <ul id="ingrAgg" class="lista-ingredientiAggiunti"></ul>
     </section>
   </div>
   
-  <!-- Lista degli ingredienti aggiunti nella sessione -->
-  <section class="lista-ingredientiAggiunti-wrapper">
-    <h2>Ingredienti aggiunti:</h2>
-    <ul class="lista-ingredientiAggiunti" th:if="${ingredientiAggiunti}">
-      <li th:each="ingr, iterStat : ${ingredientiAggiunti}" class="ingrediente-chip">
-        <button type="button" class="btn-remove" th:attr="data-index=${iterStat.index}">
-          <span th:text="${ingr.nome}"></span> <span class="remove-x">x</span>
-        </button>
-      </li>
-    </ul>
-  </section>
-</div>
-
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Seleziono la lista degli ingredienti presenti nel DB
+      const listaIngredienti = document.querySelector(".lista-ingredienti");
+      const listaAggiunti = document.querySelector(".lista-ingredientiAggiunti");
+      const ingredientiAggiuntiWrapper = document.getElementById("ingredientiAggiuntiWrapper");
+      
+      // Gestisco l'aggiunta degli ingredienti alla lista degli ingredienti aggiunti
+      if (listaIngredienti) {
+        listaIngredienti.addEventListener("click", function(event) {
+          // Se viene cliccato un ingrediente dalla lista
+          const item = event.target.closest("li");
+          if (item) {
+            // Estrai il nome dell'ingrediente
+            const nomeIngrediente = item.textContent.trim();
+            // Verifica se l'ingrediente è già nella lista degli aggiunti
+            const existingItem = Array.from(listaAggiunti.children).find(li => li.textContent.includes(nomeIngrediente));
+            
+            if (!existingItem) {
+              // Crea un nuovo elemento nella lista degli ingredienti aggiunti
+              const newItem = document.createElement("li");
+              newItem.classList.add("ingrediente-chip");
+              newItem.innerHTML = `
+                <button type="button" class="btn-remove">
+                  <span>${nomeIngrediente}</span> <span class="remove-x">x</span>
+                </button>
+              `;
+              listaAggiunti.appendChild(newItem);
+              
+              // Mostra la sezione "Ingredienti aggiunti" quando viene aggiunto un ingrediente
+              ingredientiAggiuntiWrapper.style.display = "block";
+            }
+          }
+        });
+      }
+      
+      // Gestione della rimozione degli ingredienti aggiunti
+      if (listaAggiunti) {
+        listaAggiunti.addEventListener("click", function(event) {
+          if (event.target.closest("button")) {
+            const chip = event.target.closest("button");
+            chip.closest("li").remove();
+            
+            // Se non ci sono più elementi, nascondi la sezione "Ingredienti aggiunti"
+            if (listaAggiunti.children.length === 0) {
+              ingredientiAggiuntiWrapper.style.display = "none";
+            }
+          }
+        });
+      }
+    });
+  </script>
+  
 </body>
 </html>

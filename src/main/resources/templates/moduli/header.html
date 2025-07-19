@@ -7,7 +7,7 @@
   
   <header th:fragment="header">
     <nav class="topbar">
-
+      
       <!-- Logo a sinistra -->
       <a th:href="@{/}" class="logo-link">
         <h1>MyRecipe</h1>
@@ -15,13 +15,11 @@
       </a>
       
       <div class="center-message" th:if="${userDetails != null}">Benvenuto!</div>
-
+      
       <!-- Username + logout se loggato -->
       <div class="header-username" th:if="${userDetails != null}">
         <span th:text="${userDetails.username}">Username</span>
-        <form action="/logout" method="post" style="display:inline;">
-          <button type="submit">Esci</button>
-        </form>
+        <a th:href="@{/logout}">Esci</a>
       </div>
       
       <!-- Login/Registrati se non loggato -->

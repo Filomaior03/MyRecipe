@@ -38,6 +38,11 @@ public class IngredienteService {
 		return this.ingredienteRepository.findById(id).get();
 	}
 	
+//	public Iterable<Ingrediente> findIngredientsById(List<Long> ids) {
+//		return this.ingredienteRepository.findAllById(ids);
+//	}
+	
+	
 	//verifica che un ingrediente sia già presente nel DB
 	public boolean existIngredientByName(String name) {
 		Iterable<Ingrediente> ingredientiEsistenti = this.ingredienteRepository.findAll();

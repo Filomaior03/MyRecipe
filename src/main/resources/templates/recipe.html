@@ -29,13 +29,16 @@
     
     <!-- Contenuto a destra -->
     <div class="ricetta-dettaglio-contenuto">
-      <h1 th:text="${ricetta.nome}" class="ricetta-dettaglio-titolo">Nome della Ricetta</h1>
+      <div class="ricetta-dettaglio-header">
+        <h1 th:text="${ricetta.nome}" class="ricetta-dettaglio-titolo">Nome della Ricetta</h1>
+        <a class="modifica-button"
+        th:if="${isAdmin or (ricetta.utente != null and ricetta.utente.equals(utenteCorrente))}"
+        th:href="@{'/changeRecipe/' + ${ricetta.id}}">Modifica</a>
+      </div>
+      
       
       <div class="ricetta-dettaglio-info">
-        <div th:text="${ricetta.tempoDiPreparazione}">Tempo: 45 minuti</div>
-
-        <!-- <div th:text="'Per: ' + ${ricetta.dose}">Per: 4 persone</div>-->
-      
+        <div th:text="${ricetta.tempoDiPreparazione}">Tempo: 45 minuti</div>      
       </div>
       
       <div class="ricetta-dettaglio-ingredienti">
@@ -46,7 +49,7 @@
         </ul>
       </div>
       
-      <div class="ricetta-dettaglio-procedimento">
+      <div class="ricetta-dettaglio-ingredienti">
         <h2>Procedimento</h2>
         <p th:text="${ricetta.procedimento}">
           Descrizione dettagliata dei passaggi per preparare la ricetta.

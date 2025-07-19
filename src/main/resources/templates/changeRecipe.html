@@ -25,7 +25,8 @@
   <th:block th:replace="~{moduli/header :: header}"></th:block>
   
   <!-- Contenitore del form -->
-  <form th:action="@{/newRecipe}" method="POST" th:object="${ricetta}" enctype="multipart/form-data" class="form-nuova-ricetta">
+  <form th:action="@{/changeRecipe}" method="POST" th:object="${ricetta}" enctype="multipart/form-data" class="form-nuova-ricetta">
+    <input type="hidden" th:field="${ricetta.id}" />
     
     <h1>Per aggiungere una nuova ricetta, compila i seguenti campi:</h1>
     
@@ -37,54 +38,51 @@
     <!-- Campo Nome -->
     <div class="campo">
       <label>Nome:</label>
-      <input type="text" th:field="*{nome}" placeholder="Es. Pasta al sugo"/>
+      <input type="text" th:field="*{nome}" th:value="${ricetta.nome}" placeholder="Es. Pasta al sugo"/>
       <span class="errore-campo" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
     </div>
     
     <!-- Campo Categoria -->
     <div class="campo">
       <label>Categoria:</label>
-      <input type="text" th:field="*{categoria}" placeholder="Es. Contorno"/>
+      <input type="text" th:field="*{categoria}" th:value="${ricetta.categoria}" placeholder="Es. Contorno"/>
       <span class="errore-campo" th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}"></span>
     </div>
     
     <!-- Campo Tempo di preparazione -->
     <div class="campo">
       <label>Tempo di preparazione:</label>
-      <input type="text" th:field="*{tempoDiPreparazione}" placeholder="Es. 20 min"/>
+      <input type="text" th:field="*{tempoDiPreparazione}" th:value="${ricetta.tempoDiPreparazione}" placeholder="Es. 20 min"/>
       <span class="errore-campo" th:if="${#fields.hasErrors('tempoDiPreparazione')}" th:errors="*{tempoDiPreparazione}"></span>
     </div>
     
     <!-- Campo Provenienza -->
     <div class="campo">
       <label>Provenienza:</label>
-      <input type="text" th:field="*{provenienza}" placeholder="Es. Italia"/>
+      <input type="text" th:field="*{provenienza}" th:value="${ricetta.provenienza}" placeholder="Es. Italia"/>
       <span class="errore-campo" th:if="${#fields.hasErrors('provenienza')}" th:errors="*{provenienza}"></span>
     </div>
     
     <!-- Campo Procedimento -->
     <div class="campo">
       <label>Procedimento:</label>
-      <textarea th:field="*{procedimento}" placeholder="Es. Cuoci la pasta..." rows="8"></textarea>
+      <textarea th:field="*{procedimento}" th:value="${ricetta.procedimento}" placeholder="Es. Cuoci la pasta..." rows="8"></textarea>
     </div>
     
     <!-- Campo Img -->
     <div class="campo">
-      <input type="file" name="copertinaFile" accept="image/*"/>
+      <input type="file" name="copertinaFile" accept="image/*" th:value="${ricetta.img}"/>
     </div>
     
     <h2>Ingredienti presenti:</h2>
     <ul id="ingrAgg" class="lista-ingredientiPresenti"></ul>
     
     <select name="listaIngredienti" multiple style="height: 150px;">
-      <option th:each="ingr : ${ingredienti}" th:text="${ingr.nome}" th:value="${ingr.id}"></option>
+      <option th:each="ingr : ${ingredienti}" th:text="${ingr.nome}" th:value="${ingr.id}" th:selected="${ricetta.ingredienti.contains(ingr)}"></option>
     </select>
     
-    <!-- Errore Ingredienti -->
-    <span class="errore-campo" th:each="err : ${#fields.globalErrors()}" th:if="${err == 'error.listaIngredienti'}"></span>
-    
     <!-- Bottone Conferma -->
-    <button type="submit" class="bottone-conferma">Conferma</button>
+    <button type="submit" class="bottone-conferma">Conferma modifiche</button>
   </form>
   
   <script>

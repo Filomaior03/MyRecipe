@@ -15,7 +15,7 @@ public class Credenziali {
 
 	public static final String DEFAULT_ROLE = "UTENTE";
 	public static final String ADMIN_ROLE = "ADMIN";
-	
+
 	@Id	//chiave primaria della tabella
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -27,15 +27,15 @@ public class Credenziali {
 	@NotNull
 	@NotBlank
 	private String password;
-	
+
 	private String ruolo;
-	
+
 	@OneToOne(mappedBy = "credenziali")
 	private Utente utente;
-	
+
 	@Transient
 	private String confirmPassword;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -47,43 +47,59 @@ public class Credenziali {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
+
 	public String getUsername() {
 		return username;
 	}
-	
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public String getPassword() {
 		return password;
 	}
-	
+
 	public void setRuolo(String ruolo) {
 		this.ruolo = ruolo;
 	}
-	
+
 	public String getRuolo() {
 		return ruolo;
 	}
-	
+
 	public void setConfirmPassword(String confirmPassword) {
 		this.confirmPassword = confirmPassword;
 	}
-	
+
 	public String getConfirmPassword() {
 		return confirmPassword;
 	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		Ricetta r = (Ricetta) obj;
-		return this.id == r.getId();
+
+	public Utente getUtente() {
+		return this.utente;
 	}
 
-	@Override
-	public int hashCode() {
-		return this.id.hashCode();
+	public void setUtente(Utente utente) {
+		this.utente = utente;
 	}
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) return true;             // stesso riferimento
+    if (obj == null || getClass() != obj.getClass()) return false; // null o classe diversa
+    
+    Credenziali r = (Credenziali) obj;
+    
+    if (this.id == null) {
+      return r.getId() == null;
+    } else {
+      return this.id.equals(r.getId());
+    }
+  }
+  
+  @Override
+  public int hashCode() {
+    return (id == null) ? 0 : id.hashCode();
+  }
 }

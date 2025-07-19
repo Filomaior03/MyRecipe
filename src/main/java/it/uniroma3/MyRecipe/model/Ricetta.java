@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -22,6 +23,7 @@ public class Ricetta { //con @Entity il framework sa che a Ricetta bisogna assoc
   @NotBlank
   private String nome;
   
+  @NotBlank
   private String tempoDiPreparazione;
   
   @NotBlank
@@ -35,7 +37,10 @@ public class Ricetta { //con @Entity il framework sa che a Ricetta bisogna assoc
   @Column(length = 2000)
   private String procedimento;
   
-  @ManyToMany(mappedBy = "ricette")
+  @ManyToOne
+  private Utente utente;
+  
+  @ManyToMany
   private List<Ingrediente> ingredienti;
   
   public Long getId() {
@@ -86,6 +91,14 @@ public class Ricetta { //con @Entity il framework sa che a Ricetta bisogna assoc
     return img;
   }
   
+  public void setUtente(Utente utente) {
+    this.utente = utente;
+  }
+  
+  public Utente getUtente() {
+    return utente;
+  }
+  
   public void setIngredienti(List<Ingrediente> ingredienti) {
     this.ingredienti = ingredienti;
   }
@@ -104,12 +117,20 @@ public class Ricetta { //con @Entity il framework sa che a Ricetta bisogna assoc
   
   @Override
   public boolean equals(Object obj) {
+    if (this == obj) return true;             // stesso riferimento
+    if (obj == null || getClass() != obj.getClass()) return false; // null o classe diversa
+    
     Ricetta r = (Ricetta) obj;
-    return this.id == r.getId();
+    
+    if (this.id == null) {
+      return r.getId() == null;
+    } else {
+      return this.id.equals(r.getId());
+    }
   }
   
   @Override
   public int hashCode() {
-    return this.id.hashCode();
+    return (id == null) ? 0 : id.hashCode();
   }
 }

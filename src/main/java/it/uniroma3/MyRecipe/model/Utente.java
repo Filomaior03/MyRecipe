@@ -33,7 +33,7 @@ public class Utente { //con @Entity il framework sa che a Recipe bisogna associa
   @OneToOne
   private Credenziali credenziali;
   
-  @OneToMany
+  @OneToMany(mappedBy = "utente")
   private List<Ricetta> ricette;
   
   public Long getId() {
@@ -72,18 +72,34 @@ public class Utente { //con @Entity il framework sa che a Recipe bisogna associa
     this.credenziali = credenziali;
   }
   
+  public List<Ricetta> getRicette() {
+    return ricette;
+  }
+  
+  public void setRicette(List<Ricetta> ricette) {
+    this.ricette = ricette;
+  }
+  
   public Credenziali getCredentials() {
     return credenziali;
   }
   
   @Override
   public boolean equals(Object obj) {
-    Ricetta r = (Ricetta) obj;
-    return this.id == r.getId();
+    if (this == obj) return true;             // stesso riferimento
+    if (obj == null || getClass() != obj.getClass()) return false; // null o classe diversa
+    
+    Utente r = (Utente) obj;
+    
+    if (this.id == null) {
+      return r.getId() == null;
+    } else {
+      return this.id.equals(r.getId());
+    }
   }
   
   @Override
   public int hashCode() {
-    return this.id.hashCode();
+    return (id == null) ? 0 : id.hashCode();
   }
 }
