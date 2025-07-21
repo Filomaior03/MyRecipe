@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Fascinate&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <title>Ricetta</title>
+</head>
+<body>
+  
+  <!-- Favicon base -->
+  <link rel="icon" href="/logo/favicon.ico" type="image/x-icon">
+  
+  <!-- Favicon PNG -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/logo/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/logo/favicon-16x16.png">
+  
+  <!-- Manifest -->
+  <link rel="manifest" href="/logo/manifest.json">
+  
+  <!-- Import del frammento header -->
+  <th:block th:replace="~{moduli/header :: header}"></th:block>
+  
+  <div class="ricetta-dettaglio">
+    <!-- Immagine della ricetta -->
+    <div class="ricetta-dettaglio-immagine">
+      <img th:src="@{'/' + ${ricetta.img}}" th:alt="${ricetta.nome}">
+    </div>
+    
+    <!-- Contenuto a destra -->
+    <div class="ricetta-dettaglio-contenuto">
+      <div class="ricetta-dettaglio-header">
+        <h1 th:text="${ricetta.nome}" class="ricetta-dettaglio-titolo">Nome della Ricetta</h1>
+        <a class="modifica-button"
+        th:if="${isAdmin or (ricetta.utente != null and ricetta.utente.equals(utenteCorrente))}"
+        th:href="@{'/changeRecipe/' + ${ricetta.id}}">Modifica</a>
+      </div>
+      
+      
+      <div class="ricetta-dettaglio-info">
+        <div th:text="${ricetta.tempoDiPreparazione}">Tempo: 45 minuti</div>      
+      </div>
+      
+      <div class="ricetta-dettaglio-ingredienti">
+        <h2>Ingredienti</h2>
+        <ul>
+          <li th:each="ingr : ${ingredienti}"
+          th:text="${ingr.nome}"> Ingrediente 1 (quantità)</li>
+        </ul>
+      </div>
+      
+      <div class="ricetta-dettaglio-ingredienti">
+        <h2>Procedimento</h2>
+        <p th:text="${ricetta.procedimento}">
+          Descrizione dettagliata dei passaggi per preparare la ricetta.
+        </p>
+      </div>
+      
+      <div class="ricetta-dettaglio-meta">
+        <div th:text="'Provenienza: ' + ${ricetta.provenienza}">Provenienza: Italia</div>
+        <div th:text="'Categoria: ' + ${ricetta.categoria}">Categoria: Dessert</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

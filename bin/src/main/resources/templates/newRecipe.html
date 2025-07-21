@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Nuova ricetta</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fascinate+Inline&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fascinate&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  
+  <!-- Favicon base -->
+  <link rel="icon" href="/logo/favicon.ico" type="image/x-icon">
+  
+  <!-- Favicon PNG -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/logo/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/logo/favicon-16x16.png">
+  
+  <!-- Manifest -->
+  <link rel="manifest" href="/logo/manifest.json">
+  
+  <!-- Import del frammento header -->
+  <th:block th:replace="~{moduli/header :: header}"></th:block>
+  
+  <!-- Contenitore del form -->
+  <form th:action="@{/newRecipe}" method="POST" th:object="${ricetta}" enctype="multipart/form-data" class="form-nuova-ricetta">
+    
+    <h1>Per aggiungere una nuova ricetta, compila i seguenti campi:</h1>
+    
+    <!-- Messaggi di errore globali -->
+    <div class="errore-globale" th:if="${#fields.hasGlobalErrors()}">
+      <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+    </div>
+    
+    <!-- Campo Nome -->
+    <div class="campo">
+      <label>Nome:</label>
+      <input type="text" th:field="*{nome}" placeholder="Es. Pasta al sugo"/>
+      <span class="errore-campo" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+    </div>
+    
+    <!-- Campo Categoria -->
+    <div class="campo">
+      <label>Categoria:</label>
+      <input type="text" th:field="*{categoria}" placeholder="Es. Contorno"/>
+      <span class="errore-campo" th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}"></span>
+    </div>
+    
+    <!-- Campo Tempo di preparazione -->
+    <div class="campo">
+      <label>Tempo di preparazione:</label>
+      <input type="text" th:field="*{tempoDiPreparazione}" placeholder="Es. 20 min"/>
+      <span class="errore-campo" th:if="${#fields.hasErrors('tempoDiPreparazione')}" th:errors="*{tempoDiPreparazione}"></span>
+    </div>
+    
+    <!-- Campo Provenienza -->
+    <div class="campo">
+      <label>Provenienza:</label>
+      <input type="text" th:field="*{provenienza}" placeholder="Es. Italia"/>
+      <span class="errore-campo" th:if="${#fields.hasErrors('provenienza')}" th:errors="*{provenienza}"></span>
+    </div>
+    
+    <!-- Campo Procedimento -->
+    <div class="campo">
+      <label>Procedimento:</label>
+      <textarea th:field="*{procedimento}" placeholder="Es. Cuoci la pasta..." rows="8"></textarea>
+    </div>
+    
+    <!-- Campo Img -->
+    <div class="campo">
+      <input type="file" name="copertinaFile" accept="image/*"/>
+    </div>
+    
+    <h2>Ingredienti presenti:</h2>
+    <ul id="ingrAgg" class="lista-ingredientiPresenti"></ul>
+    
+    <select name="listaIngredienti" multiple style="height: 150px;">
+      <option th:each="ingr : ${ingredienti}" th:text="${ingr.nome}" th:value="${ingr.id}"></option>
+    </select>
+    
+    <!-- Errore Ingredienti -->
+    <span class="errore-campo" th:each="err : ${#fields.globalErrors()}" th:if="${err == 'error.listaIngredienti'}"></span>
+    
+    <!-- Bottone Conferma -->
+    <button type="submit" class="bottone-conferma">Conferma</button>
+  </form>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Seleziono la lista degli ingredienti presenti nel DB
+      const listaIngredienti = document.querySelector(".lista-ingredienti");
+      const listaAggiunti = document.querySelector(".lista-ingredientiAggiunti");
+      
+      // Gestisco l'aggiunta degli ingredienti alla lista degli ingredienti aggiunti
+      if (listaIngredienti) {
+        listaIngredienti.addEventListener("click", function(event) {
+          // Se viene cliccato un ingrediente dalla lista
+          const item = event.target.closest("li");
+          if (item) {
+            // Estrai il nome dell'ingrediente
+            const nomeIngrediente = item.textContent.trim();
+            // Verifica se l'ingrediente è già nella lista degli aggiunti
+            const existingItem = Array.from(listaAggiunti.children).find(li => li.textContent.includes(nomeIngrediente));
+            
+            if (!existingItem) {
+              // Crea un nuovo elemento nella lista degli ingredienti aggiunti
+              const newItem = document.createElement("li");
+              newItem.classList.add("ingrediente-chip");
+              newItem.innerHTML = `
+                <button type="button" class="btn-remove">
+                  <span>${nomeIngrediente}</span> <span class="remove-x">x</span>
+                </button>
+              `;
+              listaAggiunti.appendChild(newItem);
+              document.getElementById("ingrAgg").appendChild(listaAggiunti);
+              
+            }
+          }
+        });
+      }
+      
+      // Gestione della rimozione degli ingredienti aggiunti
+      if (listaAggiunti) {
+        listaAggiunti.addEventListener("click", function(event) {
+          if (event.target.closest("button")) {
+            const chip = event.target.closest("button");
+            chip.closest("li").remove();
+          }
+        });
+      }
+    });
+  </script>
+  
+</body>
+</html>

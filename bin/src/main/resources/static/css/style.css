@@ -1,0 +1,1016 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #30BCED;
+  font-family: "Sour Gummy", sans-serif;
+  color: #303036;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Topbar full width */
+.topbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  max-width: 100vw;
+  background-color: #FC5130;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-radius: 0 0 20px 20px;
+  min-height: 70px;
+  overflow: visible;
+  z-index: 10;
+}
+
+/* Logo + titolo */
+.topbar .logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+}
+
+.topbar .logo-link h1 {
+  font-family: "Fascinate Inline", system-ui;
+  font-size: 2rem;
+  letter-spacing: 0.05em;
+  margin: 0;
+  margin-right: 0.5rem;
+  line-height: 1;
+  white-space: nowrap;
+  position: relative;
+  top: -1px;
+}
+
+.topbar .icon {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* Stile per il messaggio centrale */
+.topbar .center-message {
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: white;
+}
+
+/* Link a destra */
+.topbar .right-links {
+  display: flex;
+  align-items: center;
+}
+
+.topbar .right-links a {
+  text-decoration: none;
+  color: white;
+  margin-left: 1.5rem;
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+
+.topbar .right-links a:hover {
+  color: #30BCED;
+}
+
+/* Header username (nuovo) */
+.topbar .header-username {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.topbar .header-username span {
+  cursor: default;
+  font-size: 1.2rem;
+}
+
+.topbar .header-username a,
+.topbar .header-username button {
+  color: white;
+  font-size: 1.2rem;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.topbar .header-username a:hover,
+.topbar .header-username button:hover {
+  color: #30BCED;
+}
+
+/* Icon generica */
+.icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #30BCED;
+  user-select: none;
+}
+
+p.subtitle {
+  font-size: 1.15rem;
+  margin-bottom: 2rem;
+  color: #303036;
+  font-weight: 100;
+  font-variation-settings: "wdth" 100;
+}
+
+.recipe-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem 1rem;  /* margine interno verticale 2rem, orizzontale 1rem */
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+  max-width: 100vw; /* per sicurezza non superare larghezza viewport */
+}
+
+.recipe-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.recipe-card:hover {
+  transform: scale(1.02);
+}
+
+.recipe-image {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  display: block;
+}
+
+.recipe-info {
+  padding: 0.75rem;
+  text-align: center;
+  color: #555;
+  
+}
+
+.recipe-details-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  background-color: #30BCED;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.recipe-details-link:hover {
+  background-color: #1d9cce;
+}
+
+/*PAGINA DI ERRORE*/
+.error-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.error-box {
+  font-family: "Sour Gummy", sans-serif;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  max-width: 480px;
+  width: 100%;
+}
+
+.error-box .error-icon {
+  font-size: 5rem;
+  margin-bottom: 1rem;
+  user-select: none;
+  color: #FC5130;
+}
+
+.error-box .error-title {
+  font-size: 2rem;
+  margin: 0.5rem 0;
+  color: #303036;
+}
+
+.error-box .error-subtitle {
+  font-size: 1.2rem;
+  color: #303036;
+  font-weight: 300;
+  margin-bottom: 2rem;
+}
+
+.error-box .error-home-link {
+  display: inline-block;
+  background-color: #FC5130;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 1.2rem;
+  transition: background-color 0.2s ease;
+}
+
+.error-box .error-home-link:hover {
+  background-color: #d64527;
+}
+
+/* Contenitore principale della pagina ricetta */
+.ricetta-dettaglio {
+  display: flex;
+  flex-wrap: nowrap;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  max-width: 900px;
+  width: 90%;
+  margin: 2rem auto;
+  overflow: hidden;
+  gap: 1rem;
+}
+
+/* Sezione immagine */
+.ricetta-dettaglio-immagine {
+  flex: 0 0 350px;
+  max-width: 350px;
+  max-height: none;
+  overflow: hidden;
+  border-radius: 16px 0 0 16px;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+}
+
+.ricetta-dettaglio-immagine img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 16px 0 0 16px;
+  background-color: #f8f8f8;
+}
+
+/* Sezione contenuto */
+.ricetta-dettaglio-contenuto {
+  flex: 1 1 auto;
+  padding: 2rem 2rem 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  min-width: 300px;
+  max-width: 100%;
+  overflow: visible;
+}
+
+.ricetta-dettaglio-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+/* Titolo ricetta */
+.ricetta-dettaglio-titolo {
+  font-family: "Fascinate", system-ui;
+  font-size: 2.2rem;
+  color: #FC5130;
+  margin: 0;
+}
+
+/* Bottone Modifica */
+.modifica-button {
+  background-color: red;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-family: "Sour Gummy", sans-serif;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.modifica-button:hover {
+  background-color: #2196c9;
+}
+
+/* Informazioni aggiuntive */
+.ricetta-dettaglio-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 1.1rem;
+  color: #303036;
+}
+
+.ricetta-dettaglio-info div {
+  background-color: #30BCED;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+}
+
+/* Ingredienti */
+.ricetta-dettaglio-ingredienti {
+  margin-top: 1rem;
+  overflow: visible;
+  max-height: none;
+}
+
+.ricetta-dettaglio-ingredienti h2 {
+  font-size: 1.4rem;
+  margin: 0 0 0.5rem 0;
+  color: #FC5130;
+}
+
+.ricetta-dettaglio-ingredienti ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: none;
+  overflow: visible;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.ricetta-dettaglio-ingredienti li {
+  background-color: #30BCED;
+  color: white;
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+  margin-bottom: 0;
+  flex: 1 1 auto;
+  white-space: nowrap;
+}
+
+/* Categoria e Provenienza */
+.ricetta-dettaglio-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: auto;
+}
+
+.ricetta-dettaglio-meta div {
+  background-color: #FC5130;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+/* Contenitore dei bottoni */
+.add-recipe-buttons-wrapper {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* distanza tra i bottoni */
+  z-index: 1000;
+}
+
+/* Bottone aggiungi ricetta in basso a destra */
+.add-recipe-button {
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background-color: #FC5130; /* colore arancione topbar */
+  color: white;
+  text-decoration: none;
+  border: none;
+  border-radius: 50px;
+  padding: 0.75rem 1.5rem;
+  font-family: "Sour Gummy", sans-serif;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(252,81,48,0.4);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1000; /* sopra altri elementi */
+  text-align: center;
+}
+
+.add-recipe-button:hover {
+  background-color: #d64527;
+  box-shadow: 0 6px 12px rgba(214,69,39,0.6);
+}
+/* Contenitore del form */
+.form-nuova-ricetta {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  padding: 2rem;
+  max-width: 600px;
+  width: 90%;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* Titolo della pagina */
+.form-nuova-ricetta h1 {
+  font-family: "Fascinate", system-ui;
+  font-size: 1.8rem;
+  color: #FC5130;
+  text-align: center;
+  margin: 0 0 1rem 0;
+}
+
+/* Gruppi dei campi */
+.form-nuova-ricetta .campo {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Label */
+.form-nuova-ricetta label {
+  font-size: 1.1rem;
+  color: #303036;
+  margin-bottom: 0.4rem;
+}
+
+/* Input */
+.form-nuova-ricetta input[type="text"] {
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: "Sour Gummy", sans-serif;
+  transition: border-color 0.2s ease;
+}
+
+.form-nuova-ricetta input[type="text"]:focus {
+  outline: none;
+  border-color: #30BCED;
+}
+
+/* Errori di validazione */
+.form-nuova-ricetta .errore-campo {
+  color: #FC5130;
+  font-size: 0.95rem;
+  margin-top: 0.3rem;
+}
+
+.form-lista-wrapper .errore-campo {
+  color: #FC5130;
+  font-size: 0.95rem;
+  margin-top: 0.3rem;
+}
+
+/* Messaggi di errore globali */
+.form-nuova-ricetta .errore-globale {
+  color: #FC5130;
+  font-size: 1rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* Contenitore bottoni: flex tra sinistra e destra */
+.form-nuova-ricetta .bottoni-azione {
+  display: flex;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+/* Centra il bottone all'interno del link */
+.form-nuova-ricetta .bottone-conferma {
+  display: flex;
+  justify-content: center; /* Centra il bottone orizzontalmente */
+  margin-top: 1.5rem;
+  text-decoration: none;
+}
+
+.form-nuova-ricetta .bottone-conferma {
+  background-color: #30BCED;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 0.8rem 2rem; /* padding ridotto */
+  font-size: 1rem; /* dimensione del testo */
+  font-family: "Sour Gummy", sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(48,188,237,0.4);
+  align-self: center; /* allineato al centro */
+}
+
+/* Hover bottone conferma */
+.form-nuova-ricetta .bottone-conferma:hover {
+  background-color: #1d9cce;
+  box-shadow: 0 6px 12px rgba(29,156,206,0.6);
+}
+
+/* Contenitore principale del form nuovo ingrediente */
+.form-nuovo-ingrediente {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  padding: 2rem;
+  max-width: 600px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  justify-content: space-between;
+}
+
+/* Titolo della pagina */
+.form-nuovo-ingrediente h1 {
+  font-family: "Fascinate", system-ui;
+  font-size: 1.8rem;
+  color: #FC5130;
+  text-align: center;
+  margin: 0 0 1rem 0;
+}
+
+/* Gruppi dei campi */
+.form-nuovo-ingrediente .campo {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Label */
+.form-nuovo-ingrediente label {
+  font-size: 1.1rem;
+  color: #303036;
+  margin-bottom: 0.4rem;
+}
+
+/* Input */
+.form-nuovo-ingrediente input[type="text"],
+.form-nuovo-ingrediente input[type="number"] {
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: "Sour Gummy", sans-serif;
+  transition: border-color 0.2s ease;
+}
+
+.form-nuovo-ingrediente input[type="text"]:focus,
+.form-nuovo-ingrediente input[type="number"]:focus {
+  outline: none;
+  border-color: #30BCED;
+}
+
+/* Bottone submit */
+.form-nuovo-ingrediente button[type="submit"] {
+  background-color: #30BCED;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1.1rem;
+  font-family: "Sour Gummy", sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(48,188,237,0.4);
+  align-self: center;
+  margin-top: 1rem;
+}
+
+.form-nuovo-ingrediente button[type="submit"]:hover {
+  background-color: #1d9cce;
+  box-shadow: 0 6px 12px rgba(29,156,206,0.6);
+}
+
+.form-lista-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+  gap: 2rem;
+  margin: 2rem auto;
+  max-width: 1000px;
+  width: auto; /* lascia larghezza automatica */
+}
+
+/* Form */
+.form-lista-wrapper .form-nuovo-ingrediente {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  padding: 2rem;
+  width: 50%;
+  margin: 0;
+  display: flex;
+  gap: 1.2rem;
+}
+
+.form-lista-wrapper .lista-ingredienti {
+  max-width: 300px;
+  width: 100%;
+  margin: 0;
+  max-height: 250px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  background-color: #f9f9f9;
+  font-family: "Sour Gummy", sans-serif;
+  color: #303036;
+  font-size: 1rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  height: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Lista */
+.form-lista-wrapper {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  padding: 2rem;
+  width: 50%;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+/* Titolo se vuoi uniformarlo */
+h2 {
+  font-family: "Fascinate", system-ui;
+  font-size: 1.8rem;
+  color: #FC5130;
+  margin: 0 0 1rem 0;
+  text-align: center;
+}
+
+.lista-ingredienti-wrapper {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  padding: 2rem;
+  width: 50%;
+  box-sizing: border-box;
+}
+
+/* Contenitore della lista ingredienti, stile come form */
+.lista-ingredienti {
+  max-height: 250px;
+  overflow-y: auto;
+  margin: 0;
+  list-style: none;
+  font-family: "Sour Gummy", sans-serif;
+  color: #303036;
+  font-size: 1rem;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+/* Elementi della lista */
+.lista-ingredienti li {
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid #e0e0e0;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.lista-ingredienti li:last-child {
+  border-bottom: none;
+}
+
+.lista-ingredienti li:hover {
+  background-color: #30BCED;
+  color: white;
+  border-radius: 6px;
+}
+
+/* Lista degli ingredienti aggiunti */
+.lista-ingredientiPresenti {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-start;
+}
+
+/* Wrapper per la lista degli ingredienti aggiunti */
+.lista-ingredientiPresenti-wrapper {
+  margin-top: 2rem;
+}
+
+.lista-ingredientiPresenti-wrapper h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+/* Ogni ingrediente aggiunto (chip) */
+.ingrediente-chip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #30BCED;
+  color: white;
+  padding: 0.6rem;
+  border-radius: 12px;
+  margin: 0.5rem 0;
+  width: auto; /* Può essere impostato su un valore fisso se si desidera */
+  min-width: 100px; /* Imposta una larghezza minima per ogni chip */
+  max-width: 150px; /* Limita la larghezza massima */
+  box-sizing: border-box; /* Assicura che la larghezza minima/massima venga rispettata */
+}
+
+.remove-x {
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: white;
+}
+
+.btn-remove {
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-family: "Sour Gummy", sans-serif;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  cursor: pointer;
+  gap: 5px;
+}
+
+.btn-remove .remove-x {
+  color: #d00;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.btn-remove:hover .remove-x {
+  color: #a00;
+}
+
+.btn-remove:hover {
+  background-color: #e9e9e9;
+}
+
+.form-nuovo-ingrediente .bottoni-azione {
+  display: flex;
+  justify-content: space-between; /* Dispone i bottoni a sinistra e destra */
+  gap: 10px; /* Distanza tra i bottoni */
+  margin-top: 1.5rem;
+  align-items: center;
+}
+
+/* Bottone Aggiungi ingrediente */
+.form-nuovo-ingrediente button[type="submit"] {
+  background-color: #30BCED;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 0.75rem 1.5rem;
+  height: 50px;
+  font-size: 1.1rem;
+  font-family: "Sour Gummy", sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(48,188,237,0.4);
+  flex-grow: 1; /* Rende il bottone più grande in caso di spazio disponibile */
+}
+
+.form-nuovo-ingrediente button[type="submit"]:hover {
+  background-color: #1d9cce;
+  box-shadow: 0 6px 12px rgba(29,156,206,0.6);
+}
+
+/* Bottone Conferma */
+.form-nuovo-ingrediente .bottone-conferma {
+  background-color: #FC5130;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 0.75rem 1.5rem;
+  height: 50px;
+  font-size: 1.1rem;
+  font-family: "Sour Gummy", sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(252,81,48,0.4);
+  flex-grow: 1; /* Rende il bottone più grande in caso di spazio disponibile */
+  align-self: flex-end; /* Allinea il bottone di conferma verso il basso */
+  text-decoration: none; /* Rimuove la sottolineatura del link */
+  text-align: center;
+}
+
+.form-nuovo-ingrediente .bottone-conferma:hover {
+  background-color: #d64527;
+  box-shadow: 0 6px 12px rgba(214,69,39,0.6);
+}
+
+/* Bottone Conferma */
+.bottone-conferma-link {
+  display: inline-block;
+  background-color: #30BCED;
+  color: white;
+  text-decoration: none;
+  border: none;
+  border-radius: 50px;
+  padding: 0.8rem 2rem;
+  font-size: 1.2rem;
+  font-family: "Sour Gummy", sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(48,188,237,0.4);
+}
+
+/* Hover Bottone Conferma */
+.bottone-conferma-link:hover {
+  background-color: #1d9cce;
+  box-shadow: 0 6px 12px rgba(29,156,206,0.6);
+}
+
+/* Contenitore principale della form nuova ricetta - aggiungere un wrapper più grande */
+.form-ricetta-grande-wrapper {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  padding: 2rem;
+  width: 100%;  /* Si adatta a tutta la larghezza disponibile */
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Modifica font dell'h2 della sezione "aggiungi una ricetta" per farlo uguale a "ingredienti presenti" */
+.form-nuova-ricetta h2 {
+  font-family: "Fascinate", system-ui;
+  font-size: 1.8rem;
+  color: #FC5130;
+  margin: 0 0 1rem 0;
+  text-align: center;
+}
+
+/* Modifica font dell'h2 della sezione "ingredienti presenti" per uniformarli */
+h2 {
+  font-family: "Fascinate", system-ui;
+  font-size: 1.8rem;
+  color: #FC5130;
+  margin: 0 0 1rem 0;
+  text-align: center;
+}
+
+/* Wrapper principale per la sezione del form e ingredienti - Aggiungi margini, padding e centrazione */
+.form-lista-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 2rem auto;
+  max-width: 1000px;
+  width: 100%;
+}
+
+/* Modifica la form-ricetta-wrapper per essere più dentro il nuovo wrapper */
+.form-ricetta-wrapper {
+  flex: 1;
+  padding-right: 20px;
+  padding-left: 0;
+  /* Non è necessario modificare altre proprietà, la form-ricetta-wrapper sarà già dentro il nuovo contenitore */
+}
+
+/* Wrapper principale per la sezione del form e ingredienti */
+.form-lista-wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+/* Sezione per il form della ricetta */
+.form-ricetta-wrapper {
+  flex: 1;
+  padding-right: 20px;
+}
+
+/* Sezione per gli ingredienti aggiunti */
+.lista-ingredientiPresenti-wrapper {
+  flex: 1;
+  margin-left: 20px;
+  display: none;
+}
+
+/* Stile per ogni elemento ingrediente nella lista */
+.lista-ingredienti .ingrediente-item {
+  padding: 0.6rem;
+  background-color: #f2f2f2;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.lista-ingredienti .ingrediente-item:hover {
+  background-color: #e1e1e1;
+}
+
+/* Stile per la lista degli ingredienti aggiunti */
+.lista-ingredientiPresenti {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lista-ingredientiPresenti .ingrediente-chip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #30BCED;
+  color: white;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.lista-ingredientiPresenti .ingrediente-chip button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.lista-ingredientiPresenti .ingrediente-chip .remove-x {
+  font-weight: bold;
+}
+
+/* Stile per il bottone di conferma */
+.bottone-conferma-link {
+  display: inline-block;
+  background-color: #30BCED;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  text-decoration: none;
+  text-align: center;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.bottone-conferma-link:hover {
+  background-color: #1d9cce;
+}
+
+/* Input generici e textarea */
+form input, form select, form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  font-family: "Sour Gummy", sans-serif;
+  transition: border-color 0.2s ease;
+}
+
+form input:focus, form select:focus, form textarea:focus {
+  border-color: #30BCED;
+  outline: none;
+}
+
+/* Bottone di submit */
+form button[type="submit"] {
+  background-color: #30BCED;
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  font-size: 1.1rem;
+  font-family: "Sour Gummy", sans-serif;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(48,188,237,0.4);
+}
+
+form button[type="submit"]:hover {
+  background-color: #1d9cce;
+  box-shadow: 0 6px 12px rgba(29,156,206,0.6);
+}

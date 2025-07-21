@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+</head>
+<body>
+  
+  <header th:fragment="header">
+    <nav class="topbar">
+      
+      <!-- Logo a sinistra -->
+      <a th:href="@{/}" class="logo-link">
+        <h1>MyRecipe</h1>
+        <img class="icon" th:src="@{/logo/android-chrome-192x192.png}" alt="Padella con uovo" width="48" height="48">
+      </a>
+      
+      <div class="center-message" th:if="${userDetails != null}">Benvenuto!</div>
+      
+      <!-- Username + logout se loggato -->
+      <div class="header-username" th:if="${userDetails != null}">
+        <span th:text="${userDetails.username}">Username</span>
+        <a th:href="@{/logout}">Esci</a>
+      </div>
+      
+      <!-- Login/Registrati se non loggato -->
+      <div class="header-username" th:if="${userDetails == null}">
+        <span><a th:href="@{/login}">Login</a></span>
+        <span><a th:href="@{/register}">Registrati</a></span>
+      </div>
+    </nav>
+  </header>
+  
+</body>
+</html>

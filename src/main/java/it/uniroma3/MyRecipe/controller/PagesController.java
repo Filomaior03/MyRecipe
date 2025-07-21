@@ -73,6 +73,12 @@ public class PagesController {
 		model.addAttribute("ricette", this.ricettaService.getAllRecipes());
 		model.addAttribute("isAdmin", isAdmin);
 		model.addAttribute("utenteCorrente", u);
+		
+		if (u != null)	//utente già autenticato, trovo le ricette già create da lui nel DB
+		    model.addAttribute("ricetteUtente", ricettaService.getRecipesByUtenteId(u.getId()));
+		else
+		    model.addAttribute("ricetteUtente", 0);	//utente non ancora/appena registrato, ancora nessuna ricetta creata
+
 				
 		return "index";
 	}
@@ -286,6 +292,11 @@ public class PagesController {
 		model.addAttribute("utenteCorrente", u);
 		model.addAttribute("isAdmin", isAdmin);
 
+		Long ricetteUtente = this.ricettaService.getRecipesByUtenteId(u.getId());
+		ricetteUtente--;
+
+		model.addAttribute("ricetteUtente", ricetteUtente);
+		
 		this.ricettaService.deleteRecipeById(id);
 
 		return "redirect:/index";

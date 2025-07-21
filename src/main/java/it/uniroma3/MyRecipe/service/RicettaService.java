@@ -28,4 +28,9 @@ public class RicettaService {
 	public void deleteRecipeById(Long id) {
 		this.ricettaRepository.deleteById(id);
 	}
+	
+	public Long getRecipesByUtenteId(Long id){
+		return this.ricettaRepository.countRicetteByUtenteId(id);
+	}
+
 }
