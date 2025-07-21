@@ -39,7 +39,7 @@ public class AuthenticationController {
 		//utente non loggato, torna alla pagina per fare il login
 		return "login";
 	}
-	
+
 	//restituisce la pagina per la registrazione - PUBBLICA
 	@GetMapping("/register")
 	public String showRegisterForm(Model model) {
@@ -47,13 +47,13 @@ public class AuthenticationController {
 		model.addAttribute("credenziali", new Credenziali());
 		return "register";
 	}
-	
+
 	@PostMapping("/register")
 	public String saveCredenziali(@Valid @ModelAttribute("utente") Utente utente, BindingResult brU, 
 			@Valid @ModelAttribute("credenziali") Credenziali credenziali, BindingResult brC, Model model) {
 		if(brU.hasErrors() || brC.hasErrors())
 			return "register";
-		
+
 		//la conferma della password non va a buon fine
 		if(!credenziali.getPassword().equals(credenziali.getConfirmPassword())) {
 			//messaggio di errore
@@ -61,12 +61,16 @@ public class AuthenticationController {
 			return "register";
 		}
 		
-		//nessun errore nella registrazione, salvo l'utente e le sue credenziali e faccio fare all'utente il login
-		else{
-			this.utenteService.saveUtente(utente);
-			this.credenzialiService.saveCredenziali(credenziali);
-			model.addAttribute("utente", utente);
-		}
+		//salvo le credenziali dell'utente registrato, ASSEGNANDOGLI IL RUOLO "UTENTE"
+		this.credenzialiService.saveCredenziali(credenziali);
+		
+		//lego le credenziali all'utente appena registrato
+		utente.setCredentials(credenziali);
+		credenziali.setUtente(utente);	
+
+		this.utenteService.saveUtente(utente);	//salvo l'utente (e di conseguenza le sue credenziali)
+						
+		model.addAttribute("utente", utente);
 		return "redirect:/login";	//reindirizzo il nuovo utente alla pagina di login per autenticarsi
 	}
 }

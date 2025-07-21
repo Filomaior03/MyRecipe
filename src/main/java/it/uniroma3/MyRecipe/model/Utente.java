@@ -2,6 +2,7 @@ package it.uniroma3.MyRecipe.model;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,10 +31,10 @@ public class Utente { //con @Entity il framework sa che a Recipe bisogna associa
   @NotBlank
   private String email;
   
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)	//se salvo l'utente salvo anche le credenziali 
   private Credenziali credenziali;
   
-  @OneToMany(mappedBy = "utente")
+  @OneToMany(mappedBy = "utente", cascade = CascadeType.ALL)
   private List<Ricetta> ricette;
   
   public Long getId() {

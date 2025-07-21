@@ -30,7 +30,6 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 
-
 //classe che gestisce le richieste http tramite metodi Java
 @Controller
 public class PagesController {
@@ -66,14 +65,15 @@ public class PagesController {
 
 			model.addAttribute("userDetails", cred);  //utile per il logout
 		}
-
+		
+		//utente non autenticato, userDetails è null
 		else
 			model.addAttribute("userDetails", null);
 
 		model.addAttribute("ricette", this.ricettaService.getAllRecipes());
 		model.addAttribute("isAdmin", isAdmin);
 		model.addAttribute("utenteCorrente", u);
-
+				
 		return "index";
 	}
 
@@ -122,6 +122,7 @@ public class PagesController {
 			return "newRecipe";	//torno alla stessa pagina
 		}
 
+		//gestione di salvataggio dell'immagine
 		if (!copertinaFile.isEmpty()) {
 			try {
 				// Salva il file nella cartella "copertine" dentro /static/images (es.
@@ -161,6 +162,11 @@ public class PagesController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username = auth.getName();
 		Utente u = credenzialiService.getCredenzialiByUsername(username).getUtente();
+		
+		System.out.println("USERNAME autenticato: " + username);
+		Credenziali cred = credenzialiService.getCredenzialiByUsername(username);
+		System.out.println("CRED trovate: " + cred);
+		System.out.println("Utente legato alle credenziali: " + cred.getUtente());
 
 		ric.setUtente(u);	//lego l'utente alla ricetta che ha creato
 		ricettaService.save(ric);
@@ -213,7 +219,7 @@ public class PagesController {
 	}
 
 	@PostMapping("/changeRecipe")
-	public String postModificaLibro(@ModelAttribute Ricetta ricetta,
+	public String saveChanges(@ModelAttribute Ricetta ricetta,
 			@RequestParam("copertinaFile") MultipartFile copertinaFile,
 			@RequestParam("listaIngredienti") List<Long> listaIngredienti) {
 
