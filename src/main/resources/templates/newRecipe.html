@@ -37,6 +37,7 @@
     <div class="campo">
       <label>Nome:</label>
       <input type="text" th:field="*{nome}" placeholder="Es. Pasta al sugo"/>
+      <!-- mostro l'errore legato a nome (*{nome}) così -->
       <span class="errore-campo" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
     </div>
     
@@ -79,7 +80,7 @@
       <option th:each="ingr : ${ingredienti}" th:text="${ingr.nome}" th:value="${ingr.id}"></option>
     </select>
     
-    <!-- Errore Ingredienti -->
+    <!-- Errori globali, non legati ad un campo particolare, ma all'intero form -->
     <span class="errore-campo" th:each="err : ${#fields.globalErrors()}" th:if="${err == 'error.listaIngredienti'}"></span>
     
     <!-- Bottone Conferma -->

@@ -73,12 +73,6 @@ public class PagesController {
 		model.addAttribute("ricette", this.ricettaService.getAllRecipes());
 		model.addAttribute("isAdmin", isAdmin);
 		model.addAttribute("utenteCorrente", u);
-		
-		if (u != null)	//utente già autenticato, trovo le ricette già create da lui nel DB
-		    model.addAttribute("ricetteUtente", ricettaService.getRecipesByUtenteId(u.getId()));
-		else
-		    model.addAttribute("ricetteUtente", 0);	//utente non ancora/appena registrato, ancora nessuna ricetta creata
-
 				
 		return "index";
 	}
@@ -112,6 +106,7 @@ public class PagesController {
 	}
 
 	//con @RequestParam catturiamo i parametri della richiesta http, (che viene inviata una volta compilata la form)
+	//con @Valid Spring riconosce le annotazioni nelle entità (es. @NotBlank) ed esegue la validazione
 	@PostMapping("/newRecipe")
 	public String saveNewRecipe(@Valid @ModelAttribute("ricetta") Ricetta ric, BindingResult bindingResult,
 			@RequestParam("copertinaFile") MultipartFile copertinaFile, 
@@ -168,11 +163,6 @@ public class PagesController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username = auth.getName();
 		Utente u = credenzialiService.getCredenzialiByUsername(username).getUtente();
-		
-		System.out.println("USERNAME autenticato: " + username);
-		Credenziali cred = credenzialiService.getCredenzialiByUsername(username);
-		System.out.println("CRED trovate: " + cred);
-		System.out.println("Utente legato alle credenziali: " + cred.getUtente());
 
 		ric.setUtente(u);	//lego l'utente alla ricetta che ha creato
 		ricettaService.save(ric);
@@ -200,6 +190,7 @@ public class PagesController {
 
 		//tentativo di aggiungere un ingrediente già presente nel DB
 		else if(this.ingredienteService.existIngredientByName(ingr.getNome())) {
+			//nome: campo che ha generato l'errore, error.nomeIngrediente: codice d'errore, cercato dentro errorMessages.properties
 			bindingResult.rejectValue("nome", "error.nomeIngrediente");	//messaggio di errore dentro errorMessages.properties
 
 			//ritorno la pagina per la scelta degli ingredienti dopo aver recuperato la lista di tutti gli ingredienti presenti
@@ -291,11 +282,6 @@ public class PagesController {
 
 		model.addAttribute("utenteCorrente", u);
 		model.addAttribute("isAdmin", isAdmin);
-
-		Long ricetteUtente = this.ricettaService.getRecipesByUtenteId(u.getId());
-		ricetteUtente--;
-
-		model.addAttribute("ricetteUtente", ricetteUtente);
 		
 		this.ricettaService.deleteRecipeById(id);
 

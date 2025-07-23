@@ -43,7 +43,6 @@
   
   <!-- Bottone Aggiungi Ricetta (visibile solo se loggato) -->
   <div class="add-recipe-buttons-wrapper">
-    <div class="add-recipe-button" th:if="${userDetails != null}" th:text="'Ricette create: ' + ${ricetteUtente}"></div>
     <a class="add-recipe-button" th:if="${userDetails != null}" th:href="@{/addIngredient}">Aggiungi ingrediente</a>
     <a class="add-recipe-button" th:if="${userDetails != null}" th:href="@{/newRecipe}">Aggiungi ricetta</a>
   </div>

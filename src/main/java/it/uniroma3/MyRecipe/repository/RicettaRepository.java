@@ -6,7 +6,5 @@ import it.uniroma3.MyRecipe.model.Ricetta;
 
 //classe per le operazioni della persistenza (CRUD: CREATE, READ, UPDATE, DELETE)
 public interface RicettaRepository extends CrudRepository<Ricetta, Long>{
-	
-	//numero di ricette di un utente
-	Long countRicetteByUtenteId(Long id);
+
 }
